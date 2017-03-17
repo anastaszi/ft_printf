@@ -24,7 +24,7 @@ LIBOBJCS = $(addprefix $(OBJLFLDR),$(LIBFILENAME:.c=.o))
 PRINTOBJCS = $(addprefix $(OBJPFLDR),$(PRINTFILENAME:.c=.o))
 FLAGS = -Wall -Wextra -Werror
 
-all: $(NAME)
+all: fclean $(NAME)
 
 obj:
 	@mkdir -p $(OBJLFLDR)

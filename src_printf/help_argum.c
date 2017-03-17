@@ -111,8 +111,10 @@ void	add_flag_params_str(char *str, char **toread, t_flag rflag)
 		*toread = ft_stradd(toread, width_str);
 		*toread = ft_stradd(toread, temp);
 	}
-	else
+	else if (temp != NULL)
 		*toread = ft_stradd(toread, temp);
+	else
+		*toread = ft_stradd(toread, "(null)");
 	ft_memdel((void**)&temp);
 	ft_memdel((void**)&width_str);
 }

@@ -84,7 +84,7 @@ char	*check_width(char **str, t_flag rflag)
 	if (dif > 0)
 		temp = (rflag.flag_zero == 1 && len) ? ft_strnewset((size_t)dif, '0') \
 	: ft_strnewset((size_t)dif, ' ');
-	if (ft_strchr("fF", rflag.specifier) && rflag.flag_zero && !ft_isdigit((*str)[0]))
+	if (ft_strchr("fFdDi", rflag.specifier) && rflag.flag_zero && !ft_isdigit((*str)[0]))
 		{
 			temp[0] = (*str)[0];
 			(*str)[0] = '0';

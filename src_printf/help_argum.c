@@ -52,7 +52,7 @@ char	*check_precision_num(char *str, t_flag rflag)
 			str = ft_straddfirst(&str, "0X");
 		else if ((rflag.specifier == 'x' && ft_strlen(str)) || rflag.specifier == 'p')
 			str = ft_straddfirst(&str, "0x");
-		else if (ft_strchr("oO", rflag.specifier) && !ft_strcmp(str, "0"))
+		else if (ft_strchr("oO", rflag.specifier) && ft_strcmp(str, "0"))
 			str = ft_straddfirst(&str, "0");
 	}
 	len = (int)ft_strlen(str);

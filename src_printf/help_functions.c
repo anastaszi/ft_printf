@@ -31,11 +31,11 @@ int		rank(unsigned long long value, int base)
 	return (1 + rank((value / base), base));
 }
 
-char	*str_to_char(int ch)
+unsigned char	*str_to_char(int ch)
 {
 	char *str;
 
-	str = (char *)malloc(2);
+	str = (unsigned char *)malloc(2);
 	str[0] = (unsigned char)ch;
 	str[1] = '\0';
 	return (str);

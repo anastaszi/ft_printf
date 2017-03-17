@@ -36,7 +36,7 @@ char	*str_to_char(int ch)
 	char *str;
 
 	str = (char *)malloc(2);
-	str[0] = (char)ch;
+	str[0] = (unsigned char)ch;
 	str[1] = '\0';
 	return (str);
 }

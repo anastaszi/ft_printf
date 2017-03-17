@@ -154,8 +154,10 @@ void	add_flag_params_str(char *str, int *j, t_flag rflag)
 		*j = *j + strprint_del(&temp) + strprint_del(&width_str);
 	else if (width_str != NULL)
 		*j = *j + strprint_del(&width_str) + strprint_del(&temp);
-	else
+	else if (temp != NULL)
 		*j = *j + strprint_del(&temp);
+	else
+		ft_putstr("(null)");
 }
 
 void	arg_manip(t_flag rflag, va_list ap, int *j)

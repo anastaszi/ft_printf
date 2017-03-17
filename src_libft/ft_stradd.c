@@ -15,10 +15,11 @@
 char	*ft_stradd(char **str, char *add)
 {
 	char *new;
-
+	
+	new = NULL;
 	new = ft_strnew(ft_strlen(*str) + ft_strlen(add));
 	new = ft_strcpy(new, *str);
-	if (add != NULL)
+	if (add != NULL && new != NULL)
 		new = ft_strcat(new, add);
 	ft_memdel((void**)str);
 	return (new);

@@ -63,7 +63,7 @@ char	*check_precision_num(char *str, t_flag rflag)
 		temp = ft_stradd(&temp, str);
 	if (ft_strchr("dDioOuxX", rflag.specifier) && rflag.precision_num > len && rflag.precision)
 	{
-		i = (ft_strchr("dDi", rflag.specifier) && temp[0] == '-') ? 1 : 0;
+		i = (ft_strchr("dDi", rflag.specifier) && ft_strchr("- +", temp[0])) ? 1 : 0;
 		nullstr = ft_strnewset((size_t)(rflag.precision_num + i - len), '0');
 		temp = ft_straddfirst(&temp, nullstr);
 		ft_memdel((void**)&nullstr);

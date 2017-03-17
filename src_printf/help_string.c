@@ -36,22 +36,14 @@ static char	*int_manip(va_list ap, t_flag rflag)
 		return (itoa_long_base(temp, 10, rflag, LETTERSMIN));
 }
 
-static void	chars_manip(t_flag rflag, va_list ap, char **str)
+static void	string_manip(t_flag rflag, va_list ap, char **str)
 {
-	if ((ft_strchr("sS", rflag.specifier)))
-	{
-		if (rflag.length == NULL && rflag.specifier == 's')
-			*str = ft_stradd(str, va_arg(ap, char *));
-		else
-			*str = wstr_tocharray(va_arg(ap, wchar_t *));
-	}
+	if (ft_strchr("Cc", rflag.specifier))
+		*str = wint_tocharray(va_arg(ap, wint_t));
+	else if (rflag.length == NULL && rflag.specifier == 's')
+		*str = ft_stradd(str, va_arg(ap, char *));
 	else
-	{
-		if (rflag.length == NULL && rflag.specifier == 'c')
-			*str = str_to_char(va_arg(ap, int));
-		else
-			*str = wint_tocharray(va_arg(ap, wint_t));
-	}
+		*str = wstr_tocharray(va_arg(ap, wchar_t *));
 }
 static void	double_manip(t_flag rflag, va_list ap, char **str)
 {
@@ -82,8 +74,8 @@ char		*getstr(t_flag rflag, va_list ap)
 	char *str;
 
 	str = NULL;
-	if ((ft_strchr("scSC", rflag.specifier)))
-		chars_manip(rflag, ap, &str);
+	if ((ft_strchr("sSCc", rflag.specifier)))
+		string_manip(rflag, ap, &str);
 	else if ((ft_strchr("diouxXOUDp", rflag.specifier)))
 		str = int_manip(ap, rflag);
 	else if ((ft_strchr("fFeE", rflag.specifier)))

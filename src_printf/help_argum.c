@@ -12,6 +12,8 @@
 
 #include "ft_printf.h"
 
+
+
 void check_toread(char **str)
 {
 	char *temp;
@@ -91,8 +93,55 @@ char	*check_width(char **str, t_flag rflag)
 		}
 	return (temp);
 }
+void printchar(int *j, int i, t_flag rflag)
+{
+	char *width_str;
 
-void	add_flag_params_str(char *str, char **toread, t_flag rflag)
+
+	width_str = (rflag.width > 1) ? ft_strnewset((size_t)rflag.width - 1, ' ') : NULL;
+	if ((rflag.flag_minus == 1) && (width_str != NULL))
+		{
+			ft_putchar(i);
+			ft_putstr(width_str);
+		}
+	else if (width_str != NULL)
+		{
+			ft_putstr(width_str);
+			ft_putchar(i);
+		}
+	else
+		ft_putchar(i);
+	*j = *j + 1 + ft_strlen(width_str);
+	ft_memdel((void **)&width_str);
+}
+
+void add_chars(t_flag rflag, int *j, va_list ap)
+{
+	int			i;
+	uintmax_t	temp;
+	va_list		copy;
+	int			num;
+
+	
+	if (rflag.posix == 1)
+	{
+		va_copy(copy, ap);
+		num = rflag.posix_num;
+		while (num-- > 1)
+			temp = va_arg(copy, uintmax_t);
+		i = va_arg(copy, int);
+		va_end(copy);
+	}
+	else
+	{
+		if ((rflag.width_wc == 1) || (rflag.precision_wc == 1))
+			add_wc(ap, &rflag);
+		i = va_arg(ap, int);
+	}
+	printchar(j, i, rflag);
+}
+
+void	add_flag_params_str(char *str, int *j, t_flag rflag)
 {
 	char	*temp;
 	char	*width_str;
@@ -102,30 +151,21 @@ void	add_flag_params_str(char *str, char **toread, t_flag rflag)
 	if (ft_strchr("dDi", rflag.specifier) && temp)
 		check_toread(&temp);
 	if ((rflag.flag_minus == 1) && (width_str != NULL))
-	{
-		*toread = ft_stradd(toread, temp);
-		*toread = ft_stradd(toread, width_str);
-	}
+		*j = *j + strprint_del(&temp) + strprint_del(&width_str);
 	else if (width_str != NULL)
-	{
-		*toread = ft_stradd(toread, width_str);
-		*toread = ft_stradd(toread, temp);
-	}
-	else if (temp != NULL)
-		*toread = ft_stradd(toread, temp);
+		*j = *j + strprint_del(&width_str) + strprint_del(&temp);
 	else
-		*toread = ft_stradd(toread, "(null)");
-	ft_memdel((void**)&temp);
-	ft_memdel((void**)&width_str);
+		*j = *j + strprint_del(&temp);
 }
 
-void	arg_manip(t_flag rflag, va_list ap, char **toread)
+void	arg_manip(t_flag rflag, va_list ap, int *j)
 {
 	char		*str;
 	uintmax_t	temp;
 	va_list		copy;
 	int			num;
 
+	str = NULL;
 	if (rflag.posix == 1)
 	{
 		va_copy(copy, ap);
@@ -141,5 +181,5 @@ void	arg_manip(t_flag rflag, va_list ap, char **toread)
 			add_wc(ap, &rflag);
 		str = getstr(rflag, ap);
 	}
-	add_flag_params_str(str, toread, rflag);
+	add_flag_params_str(str, j, rflag);
 }

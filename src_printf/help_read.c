@@ -79,7 +79,7 @@ void	check_not_null_l(t_flag rflag)
 
 void	check_valid_flag(t_flag rflag)
 {
-	if (rflag.length != NULL)
+	/*if (rflag.length != NULL)
 		check_not_null_l(rflag);
 	if (rflag.flag_hash && ft_strchr("dinuUDscSCp", rflag.specifier))
 		if_so_warning('h');
@@ -91,7 +91,7 @@ void	check_valid_flag(t_flag rflag)
 	if (rflag.flag_zero && ft_strchr("scSCp", rflag.specifier))
 		if_so_exit('z');
 	if (rflag.flag_plus && rflag.flag_space)
-		if_so_warning('p');
+		if_so_warning('p');*/
 	if (rflag.specifier == 'n' && rflag.index > 2)
 		if_so_exit('n');
 }
@@ -121,4 +121,9 @@ void	correct_flag(t_flag *rflag, va_list ap)
 		rflag->flag_zero = 0;
 	if (!rflag->precision_num && ft_strchr("fFeE", rflag->specifier))
 		rflag->flag_zero = 0;
+	if (rflag->width < 0)
+		{ 
+			rflag->flag_minus = 1;
+			rflag->width = -1 * rflag->width;
+		}	
 }

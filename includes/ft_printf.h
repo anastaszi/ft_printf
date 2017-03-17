@@ -96,7 +96,8 @@ void				put_flag_length(t_flag *rflag);
 /*
 ** ARG_MANUP:
 */
-void				arg_manip(t_flag rflag, va_list ap, char **toread);
+void	arg_manip(t_flag rflag, va_list ap, int *j);
+void add_chars(t_flag rflag, int *j, va_list ap);
 /*
 ** STRING MANIPULATIONS:
 */
@@ -109,7 +110,7 @@ char				*wstr_tocharray(wchar_t *str);
 /*
 ** COLORS MANIPULATIONS:
 */
-void				add_char_or_color_to_str(char **put, const char *str, \
+void				add_char_or_color_to_str(int *j, const char *str, \
 		int *index);
 /*
 ** HELPING FUNCTIONS:
@@ -118,7 +119,7 @@ int					strprint_del(char **str);
 void				if_so_exit(char c);
 void				if_so_warning(char c);
 int					rank(unsigned long long value, int base);
-unsigned char				*str_to_char(int ch);
+char				*str_to_char(int ch);
 /*
 ** POSIX FUNCTIONS:
 */

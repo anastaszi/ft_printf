@@ -65,8 +65,7 @@ int		ft_printf(const char *restrict format, ...)
 	{
 		j = i;
 		while (!check_for_flag(format + i) && (format[i] != '\0'))
-			i++;
-		str = ft_strnadd(&str, format + j, i - j);
+			write(1, format[i++], 1);
 		if (format[i] != '\0')
 			add_flagged_params(&str, &i, ap, format);
 	}

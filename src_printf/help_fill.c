@@ -1,0 +1,86 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   flags_fill.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: azimina <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/03/02 12:24:45 by azimina           #+#    #+#             */
+/*   Updated: 2017/03/02 12:26:10 by azimina          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "ft_printf.h"
+
+void	put_flag(t_flag *rflag, char c)
+{
+	if (c == ' ')
+		rflag->flag_space = 1;
+	else if (c == '+')
+		rflag->flag_plus = 1;
+	else if (c == '-')
+		rflag->flag_minus = 1;
+	else if (c == '0')
+		rflag->flag_zero = 1;
+	else if (c == '#')
+		rflag->flag_hash = 1;
+	else
+		if_so_exit('f');
+}
+
+void	put_length(t_flag *rflag, const char *str, int i, int *length)
+{
+	if ((str[i + *length] == 'h') && (str[i + 1 + *length] == 'h'))
+	{
+		(*rflag).length = ft_strdup("hh");
+		*length = *length + 1;
+	}
+	else if ((str[i + *length] == 'l') && (str[i + 1 + *length] == 'l'))
+	{
+		(*rflag).length = ft_strdup("ll");
+		*length = *length + 1;
+	}
+	else
+		(*rflag).length = str_to_char((int)str[i + *length]);
+}
+
+void	add_wc(va_list ap, t_flag *rflag)
+{
+	if (rflag->width_wc == 1)
+		rflag->width = va_arg(ap, int);
+	if (rflag->precision_wc == 1)
+		rflag->precision_num = va_arg(ap, int);
+}
+
+void	put_wc(t_flag *rflag, const char *str, int i, int *length)
+{
+	int temp;
+
+	if (rflag->precision == 1)
+		rflag->precision_wc = 1;
+	else
+		rflag->width_wc = 1;
+	if (rflag->posix == 1)
+	{
+		temp = ft_atoi(str + i + 1 + *length);
+		if (rflag->precision == 1)
+			rflag->precision_wc_elem = temp;
+		else
+			rflag->width_elem = temp;
+		*length = *length + rank(temp, 10) + 1;
+		if (str[i + *length] != '$')
+			exit(4);
+	}
+}
+
+void	put_width(t_flag *rflag, const char *str, int i, int *length)
+{
+	int temp;
+
+	temp = ft_atoi(str + i + *length);
+	if (rflag->precision == 1)
+		rflag->precision_num = temp;
+	else
+		rflag->width = temp;
+	*length = *length + rank(temp, 10) - 1;
+}

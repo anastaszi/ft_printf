@@ -47,7 +47,14 @@ void	put_length(t_flag *rflag, const char *str, int i, int *length)
 void	add_wc(va_list ap, t_flag *rflag)
 {
 	if (rflag->width_wc == 1)
-		rflag->width = va_arg(ap, int);
+		{
+			rflag->width = va_arg(ap, int);
+			if (rflag->width < 0)
+			{
+				rflag->width = -1 * rflag->width;
+				rflag->flag_minus = 1;
+			}
+		}
 	if (rflag->precision_wc == 1)
 		rflag->precision_num = va_arg(ap, int);
 }

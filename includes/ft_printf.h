@@ -118,7 +118,7 @@ int					strprint_del(char **str);
 void				if_so_exit(char c);
 void				if_so_warning(char c);
 int					rank(unsigned long long value, int base);
-char				*str_to_char(int ch);
+unsigned char				*str_to_char(int ch);
 /*
 ** POSIX FUNCTIONS:
 */

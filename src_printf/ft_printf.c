@@ -12,9 +12,9 @@
 
 #include "ft_printf.h"
 
-void	put_value(char **str, int *i)
+void	put_value(int *j, int *i)
 {
-	*i = ft_strlen(*str);
+	*i = *j;
 }
 
 int		check_for_flag(const char *str)
@@ -29,12 +29,12 @@ int		check_for_flag(const char *str)
 		return (0);
 }
 
-void	add_flagged_params(char **str, int *i, va_list ap, const char *format)
+void	add_flagged_params(int *j, int *i, va_list ap, const char *format)
 {
 	t_flag	rflag;
 
 	if (check_for_flag(format + *i) != 1)
-		add_char_or_color_to_str(str, format, i);
+		add_char_or_color_to_str(j, format, i);
 	else
 	{
 		null_t_flag(&rflag);
@@ -43,9 +43,11 @@ void	add_flagged_params(char **str, int *i, va_list ap, const char *format)
 		put_flag_length(&rflag);
 		correct_flag(&rflag, ap);
 		if (rflag.specifier == 'n')
-			put_value(str, va_arg(ap, int*));
+			put_value(j, va_arg(ap, int*));
+		else if (ft_strchr("c", rflag.specifier) && rflag.length == NULL)
+			add_chars(rflag, j, ap);
 		else
-			arg_manip(rflag, ap, str);
+			arg_manip(rflag, ap, j);
 		ft_memdel((void**)&rflag.length);
 		*i = *i + 1 + rflag.index;
 	}
@@ -56,19 +58,20 @@ int		ft_printf(const char *restrict format, ...)
 	va_list	ap;
 	int		i;
 	int		j;
-	char	*str;
 
 	va_start(ap, format);
 	i = 0;
-	str = NULL;
+	j = 0;
 	while (*(format + i) != '\0')
 	{
-		j = i;
 		while (!check_for_flag(format + i) && (format[i] != '\0'))
-			write(1, format[i++], 1);
+			{
+				ft_putchar(format[i++]);
+				j++;
+			}
 		if (format[i] != '\0')
-			add_flagged_params(&str, &i, ap, format);
+			add_flagged_params(&j, &i, ap, format);
 	}
 	va_end(ap);
-	return (strprint_del(&str));
+	return (j);
 }

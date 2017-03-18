@@ -45,27 +45,44 @@ void add_hash(char **str, t_flag rflag)
 	else if (ft_strchr("oO", rflag.specifier) && ft_strcmp(*str, "0"))
 		*str = ft_straddfirst(str, "0");
 }
+
+
+char *add_numb_precision(char **str, t_flag rflag)
+{
+	char *new;
+	char *nullstr;
+	char *temp;
+	int i;
+	char ch;
+
+	new = NULL;
+	ch = (*str)[0];
+	i = (ft_isdigit(ch)) ? 0 : 1;
+	temp = (i) ? (*str + 1) : *str;
+	new = ft_strnewset((size_t)(rflag.precision_num + i), '\0');
+	if (i)
+		new = ft_straddchar(&new, ch);
+	nullstr = ft_strnewset((size_t)(rflag.precision_num + i - (int)ft_strlen(*str)), '0');
+	new = ft_stradd(&new, nullstr);
+	new = ft_stradd(&new, temp);
+	ft_memdel((void**)&nullstr);
+	ft_memdel((void**)str);
+	return(new);
+}
 char	*check_precision_num(char *str, t_flag rflag)
 {
 	char	*temp;
 	int		len;
-	char	*nullstr;
-	int i;
 	
 	temp = NULL;
-	if (ft_strchr("dDioOuxX", rflag.specifier) && !rflag.precision_num && !ft_strcmp(str, "0"))
-		str[0] = '\0';
+	if (ft_strchr("dDioOuxX", rflag.specifier) && !rflag.precision_num && (!ft_strcmp(str, "0") || (!ft_isdigit(str[0]) && !ft_strcmp(str + 1, "0"))))
+		ft_strdelpart(&str, 0);
 	if (rflag.flag_hash)
 		add_hash(&str, rflag);
 	if ((len = (int)ft_strlen(str)))
 		temp = ft_stradd(&temp, str);
-	if (ft_strchr("dDioOuxX", rflag.specifier) && rflag.precision_num > len && rflag.precision)
-	{
-		i = (ft_strchr("dDi", rflag.specifier) && ft_strchr("- +", temp[0])) ? 1 : 0;
-		nullstr = ft_strnewset((size_t)(rflag.precision_num + i - len), '0');
-		temp = ft_straddfirst(&temp, nullstr);
-		ft_memdel((void**)&nullstr);
-	}
+	if (ft_strchr("dDioOuxX", rflag.specifier) && rflag.precision_num >= len && temp && rflag.precision)
+		temp = add_numb_precision(&temp, rflag);
 	ft_memdel((void**)&str);
 	return (temp);
 }

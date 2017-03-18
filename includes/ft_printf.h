@@ -147,4 +147,5 @@ void				add_first(char **str, int i, t_flag flag);
 */
 char				*str_to_hex(char *str);
 char				*double_to_bitschar(double num);
+char 				*str_to_bitschar(char *str_nt);
 #endif

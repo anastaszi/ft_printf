@@ -68,8 +68,8 @@ static void	string_manip(t_flag rflag, va_list ap, char **str)
 	else
 		*str = wstr_tocharray(va_arg(ap, wchar_t *));
 	if (ft_strchr("sS", rflag.specifier) && rflag.precision && \
-		rflag.precision_num < ft_strlen(str) && rflag.precision_num >= 0)
-		ft_strdelpart(&str, rflag.precision_num);
+		rflag.precision_num < (int)ft_strlen(*str) && rflag.precision_num >= 0)
+			ft_strdelpart(str, rflag.precision_num);
 }
 
 static void	double_manip(t_flag rflag, va_list ap, char **str)

@@ -44,7 +44,6 @@ char	*check_precision_num(char *str, t_flag rflag)
 	int		len;
 	char	*nullstr;
 	int i;
-
 	temp = NULL;
 	if (ft_strchr("dDiouxX", rflag.specifier) && !rflag.precision_num && !ft_strcmp(str, "0"))
 		str[0] = '\0';
@@ -68,6 +67,13 @@ char	*check_precision_num(char *str, t_flag rflag)
 		i = (ft_strchr("dDi", rflag.specifier) && ft_strchr("- +", temp[0])) ? 1 : 0;
 		nullstr = ft_strnewset((size_t)(rflag.precision_num + i - len), '0');
 		temp = ft_straddfirst(&temp, nullstr);
+		ft_memdel((void**)&nullstr);
+	}
+	if (ft_strchr("fF", rflag.specifier) && !ft_strcmp(temp, "0") && rflag.precision_num)
+	{
+		temp = ft_straddchar(&temp, '.');
+		nullstr = ft_strnewset((size_t)(rflag.precision_num), '0');
+		temp = ft_stradd(&temp, nullstr);
 		ft_memdel((void**)&nullstr);
 	}
 	ft_memdel((void**)&str);

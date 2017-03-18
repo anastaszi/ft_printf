@@ -69,11 +69,13 @@ char	*check_precision_num(char *str, t_flag rflag)
 		temp = ft_straddfirst(&temp, nullstr);
 		ft_memdel((void**)&nullstr);
 	}
-	if (ft_strchr("fF", rflag.specifier) && !ft_strcmp(temp, "0") && rflag.precision_num)
+	if (ft_strchr("fFeE", rflag.specifier) && !ft_strcmp(temp, "0") && rflag.precision_num)
 	{
 		temp = ft_straddchar(&temp, '.');
 		nullstr = ft_strnewset((size_t)(rflag.precision_num), '0');
 		temp = ft_stradd(&temp, nullstr);
+		if (ft_strchr("eE", rflag.specifier))
+			temp = ft_stradd(&temp, "E+00");
 		ft_memdel((void**)&nullstr);
 	}
 	ft_memdel((void**)&str);

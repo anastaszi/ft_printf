@@ -22,7 +22,7 @@ static void add_precision_double(char **str, t_flag rflag)
 		*str = ft_straddchar(str, '.');
 		*str = ft_stradd(str, nullstr);
 		if (ft_strchr("eE", rflag.specifier))
-			temp = ft_stradd(&temp, "E+00");
+			*str = ft_stradd(str, "E+00");
 		ft_memdel((void**)&nullstr);
 	}
 }

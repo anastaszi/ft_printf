@@ -12,9 +12,35 @@
 
 #include "ft_printf.h"
 
-void	put_value(int *j, int *i)
+static void	put_value(int *j, int *i)
 {
 	*i = *j;
+}
+
+void	arg_manip(t_flag rflag, va_list ap, int *j)
+{
+	char		*str;
+	uintmax_t	temp;
+	va_list		copy;
+	int			num;
+
+	str = NULL;
+	if (rflag.posix == 1)
+	{
+		va_copy(copy, ap);
+		num = rflag.posix_num;
+		while (num-- > 1)
+			temp = va_arg(copy, uintmax_t);
+		str = getstr(rflag, copy);
+		va_end(copy);
+	}
+	else
+	{
+		if ((rflag.width_wc == 1) || (rflag.precision_wc == 1))
+			add_wc(ap, &rflag);
+		str = getstr(rflag, ap);
+	}
+	add_flag_params(str, j, rflag);
 }
 
 int		check_for_flag(const char *str)

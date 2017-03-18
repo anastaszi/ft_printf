@@ -12,6 +12,21 @@
 
 #include "ft_printf.h"
 
+static void add_precision_double(char **str, t_flag rflag)
+{
+	char *nullstr;
+
+	if (!ft_strcmp(*str, "0") && rflag.precision_num)
+	{
+		nullstr = ft_strnewset((size_t)(rflag.precision_num), '0');
+		*str = ft_straddchar(str, '.');
+		*str = ft_stradd(str, nullstr);
+		if (ft_strchr("eE", rflag.specifier))
+			temp = ft_stradd(&temp, "E+00");
+		ft_memdel((void**)&nullstr);
+	}
+}
+
 static char	*int_manip(va_list ap, t_flag rflag)
 {
 	long long temp;
@@ -52,7 +67,11 @@ static void	string_manip(t_flag rflag, va_list ap, char **str)
 		*str = ft_stradd(str, va_arg(ap, char *));
 	else
 		*str = wstr_tocharray(va_arg(ap, wchar_t *));
+	if (ft_strchr("sS", rflag.specifier) && rflag.precision && \
+		rflag.precision_num < ft_strlen(str) && rflag.precision_num >= 0)
+		ft_strdelpart(&str, rflag.precision_num);
 }
+
 static void	double_manip(t_flag rflag, va_list ap, char **str)
 {
 	double num;
@@ -83,10 +102,13 @@ char		*getstr(t_flag rflag, va_list ap)
 
 	str = NULL;
 	if ((ft_strchr("sSCc", rflag.specifier)))
-		string_manip(rflag, ap, &str);
+			string_manip(rflag, ap, &str);
 	else if ((ft_strchr("diouxXOUDp", rflag.specifier)))
 		str = int_manip(ap, rflag);
 	else if ((ft_strchr("fFeE", rflag.specifier)))
+	{
 		double_manip(rflag, ap, &str);
+		add_precision_double(&str, rflag);
+	}
 	return (str);
 }

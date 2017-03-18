@@ -96,7 +96,7 @@ void				put_flag_length(t_flag *rflag);
 /*
 ** ARG_MANUP:
 */
-void	arg_manip(t_flag rflag, va_list ap, int *j);
+void	add_flag_params(char *str, int *j, t_flag rflag);
 void add_chars(t_flag rflag, int *j, va_list ap);
 /*
 ** STRING MANIPULATIONS:

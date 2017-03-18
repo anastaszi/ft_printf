@@ -12,8 +12,6 @@
 
 #include "ft_printf.h"
 
-
-
 void check_toread(char **str)
 {
 	char *temp;
@@ -38,44 +36,34 @@ void check_toread(char **str)
 	}
 }
 
+void add_hash(char **str, t_flag rflag)
+{
+	if (rflag.specifier == 'X' && ft_strlen(*str))
+		*str = ft_straddfirst(str, "0X");
+	else if ((rflag.specifier == 'x' && ft_strlen(*str)) || rflag.specifier == 'p')
+		*str = ft_straddfirst(str, "0x");
+	else if (ft_strchr("oO", rflag.specifier) && ft_strcmp(*str, "0"))
+		*str = ft_straddfirst(str, "0");
+}
 char	*check_precision_num(char *str, t_flag rflag)
 {
 	char	*temp;
 	int		len;
 	char	*nullstr;
 	int i;
+	
 	temp = NULL;
-	if (ft_strchr("dDiouxX", rflag.specifier) && !rflag.precision_num && !ft_strcmp(str, "0"))
+	if (ft_strchr("dDioOuxX", rflag.specifier) && !rflag.precision_num && !ft_strcmp(str, "0"))
 		str[0] = '\0';
 	if (rflag.flag_hash)
-	{
-		if (rflag.specifier == 'X' && ft_strlen(str))
-			str = ft_straddfirst(&str, "0X");
-		else if ((rflag.specifier == 'x' && ft_strlen(str)) || rflag.specifier == 'p')
-			str = ft_straddfirst(&str, "0x");
-		else if (ft_strchr("oO", rflag.specifier) && ft_strcmp(str, "0"))
-			str = ft_straddfirst(&str, "0");
-	}
-	len = (int)ft_strlen(str);
-	if (ft_strchr("sSaAgG", rflag.specifier) && rflag.precision && \
-		rflag.precision_num < len && rflag.precision_num >= 0)
-		temp = ft_strsub(str, 0, rflag.precision_num);
-	else if (len)
+		add_hash(&str, rflag);
+	if ((len = (int)ft_strlen(str)))
 		temp = ft_stradd(&temp, str);
 	if (ft_strchr("dDioOuxX", rflag.specifier) && rflag.precision_num > len && rflag.precision)
 	{
 		i = (ft_strchr("dDi", rflag.specifier) && ft_strchr("- +", temp[0])) ? 1 : 0;
 		nullstr = ft_strnewset((size_t)(rflag.precision_num + i - len), '0');
 		temp = ft_straddfirst(&temp, nullstr);
-		ft_memdel((void**)&nullstr);
-	}
-	if (ft_strchr("fFeE", rflag.specifier) && !ft_strcmp(temp, "0") && rflag.precision_num)
-	{
-		temp = ft_straddchar(&temp, '.');
-		nullstr = ft_strnewset((size_t)(rflag.precision_num), '0');
-		temp = ft_stradd(&temp, nullstr);
-		if (ft_strchr("eE", rflag.specifier))
-			temp = ft_stradd(&temp, "E+00");
 		ft_memdel((void**)&nullstr);
 	}
 	ft_memdel((void**)&str);
@@ -94,18 +82,19 @@ char	*check_width(char **str, t_flag rflag)
 	if (dif > 0)
 		temp = (rflag.flag_zero == 1 && len) ? ft_strnewset((size_t)dif, '0') \
 	: ft_strnewset((size_t)dif, ' ');
-	if (ft_strchr("fFdDi", rflag.specifier) && temp && rflag.flag_zero && !ft_isdigit((*str)[0]))
+	if (ft_strchr("fFdDi", rflag.specifier) && temp && \
+		rflag.flag_zero && !ft_isdigit((*str)[0]))
 		{
 			temp[0] = (*str)[0];
 			(*str)[0] = '0';
 		}
 	return (temp);
 }
+
 void printchar(int *j, int i, t_flag rflag)
 {
 	char *width_str;
-
-
+ 
 	width_str = (rflag.width > 1) ? ft_strnewset((size_t)rflag.width - 1, ' ') : NULL;
 	if ((rflag.flag_minus == 1) && (width_str != NULL))
 		{
@@ -130,7 +119,6 @@ void add_chars(t_flag rflag, int *j, va_list ap)
 	va_list		copy;
 	int			num;
 
-	
 	if (rflag.posix == 1)
 	{
 		va_copy(copy, ap);
@@ -149,7 +137,7 @@ void add_chars(t_flag rflag, int *j, va_list ap)
 	printchar(j, i, rflag);
 }
 
-void	add_flag_params_str(char *str, int *j, t_flag rflag)
+void	add_flag_params(char *str, int *j, t_flag rflag)
 {
 	char	*temp;
 	char	*width_str;
@@ -166,30 +154,4 @@ void	add_flag_params_str(char *str, int *j, t_flag rflag)
 		*j = *j + strprint_del(&temp);
 	else
 		ft_putstr("(null)");
-}
-
-void	arg_manip(t_flag rflag, va_list ap, int *j)
-{
-	char		*str;
-	uintmax_t	temp;
-	va_list		copy;
-	int			num;
-
-	str = NULL;
-	if (rflag.posix == 1)
-	{
-		va_copy(copy, ap);
-		num = rflag.posix_num;
-		while (num-- > 1)
-			temp = va_arg(copy, uintmax_t);
-		str = getstr(rflag, copy);
-		va_end(copy);
-	}
-	else
-	{
-		if ((rflag.width_wc == 1) || (rflag.precision_wc == 1))
-			add_wc(ap, &rflag);
-		str = getstr(rflag, ap);
-	}
-	add_flag_params_str(str, j, rflag);
 }

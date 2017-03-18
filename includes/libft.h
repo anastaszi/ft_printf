@@ -106,4 +106,5 @@ int					ft_abc(int num);
 char				*ft_straddchar(char **str, char add);
 double				ft_topowerdouble(double num, int i);
 void				ft_strreverse(char **str);
+void 				ft_strdelpart(char **str, size_t start);
 #endif

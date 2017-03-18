@@ -12,7 +12,7 @@
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
-# define SPECIFS "sSpdDioOuUxXcCeEfFnaA"
+# define SPECIFS "sSpdDioOuUxXcCeEfFnaAgG"
 # define FLAGS "-+ #0"
 # define LENGTHS "lhLjz"
 # define LETTERSMAX "0123456789ABCDEF"

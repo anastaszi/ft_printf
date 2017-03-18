@@ -38,7 +38,7 @@ void	null_t_flag(t_flag *rflag)
 	rflag->tsizet = 0;
 }
 
-int	read_flag(t_flag *rflag, const char *str, int i)
+void	read_flag(t_flag *rflag, const char *str, int i)
 {
 	int len;
 
@@ -58,17 +58,13 @@ int	read_flag(t_flag *rflag, const char *str, int i)
 		else if (ft_strchr(LENGTHS, str[i + len]))
 			put_length(rflag, str, i, &len);
 		else
-			break;
-			//if_so_exit('d');
+			if_so_exit('d');
 		len++;
 	}
 	if (str[i + len] == '\0')
 		if_so_exit('s');
 	rflag->specifier = str[i + len];
-	if (!ft_strchr(SPECIFS, rflag->specifier))
-		return (0);
 	rflag->index = len;
-	return (1);
 }
 
 void	check_not_null_l(t_flag rflag)

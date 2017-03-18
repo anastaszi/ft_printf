@@ -169,6 +169,6 @@ void	add_flag_params(char *str, int *j, t_flag rflag)
 		*j = *j + strprint_del(&width_str) + strprint_del(&temp);
 	else if (temp != NULL)
 		*j = *j + strprint_del(&temp);
-	else
+	else if (ft_strchr("sS", rflag.specifier))
 		ft_putstr("(null)");
 }

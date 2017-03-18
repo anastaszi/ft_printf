@@ -55,9 +55,11 @@ void	if_so_exit(char c)
 	else if (c == 'p')
 		ft_putstr_fd("BAD POSIX FLAGS\n", 2);
 	else if (c == 'n')
-		ft_putstr_fd("BAG FLAG FOR 'n' SPECIFIER\n", 2);
+		ft_putstr_fd("BAD FLAG FOR 'n' SPECIFIER\n", 2);
 	else if (c == 'm')
 		ft_putstr_fd("'0' is ignored when '-' is present\n", 2);
+	else if (c == 'c')
+		ft_putstr_fd("Bad input for wint_t\n", 2);
 	else
 		;
 	exit(0);

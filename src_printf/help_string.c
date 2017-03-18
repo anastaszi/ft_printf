@@ -38,8 +38,16 @@ static char	*int_manip(va_list ap, t_flag rflag)
 
 static void	string_manip(t_flag rflag, va_list ap, char **str)
 {
+	wint_t i;
+
 	if (ft_strchr("Cc", rflag.specifier))
-		*str = wint_tocharray(va_arg(ap, wint_t));
+		{
+			i = va_arg(ap, wint_t);
+			if (i < 256)
+				*str = wint_tocharray(i);
+			else
+				if_so_exit('c');
+		}
 	else if (rflag.length == NULL && rflag.specifier == 's')
 		*str = ft_stradd(str, va_arg(ap, char *));
 	else

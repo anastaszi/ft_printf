@@ -29,7 +29,7 @@ static int	one_byte_char(char *str, int length, int add)
 	return (sum + add);
 }
 
-static void	add_bytes(char *dest, char *str, int length)
+static void	add_bytes_char(char *dest, char *str, int length)
 {
 	if (length < 8)
 		dest[0] = (char)(one_byte_char(str, length, 0));
@@ -53,7 +53,44 @@ static void	add_bytes(char *dest, char *str, int length)
 	}
 }
 
+static void	add_bytes(char *dest, char *str, int length)
+{
+	if (length <= 8 && str[7] != '1')
+		dest[0] = (char)(one_byte_char(str, length, 0));
+	else if (length >= 8 && length <= 12 && str[11] != '1')
+	{
+		dest[0] = (char)(one_byte_char(str, length - 6, 192));
+		dest[1] = (char)(one_byte_char(str + length - 6, 6, 128));
+	}
+	else if (length >= 12 && length <= 17 && str[16] != '1')
+	{
+		dest[0] = (char)(one_byte_char(str, length - 12, 224));
+		dest[1] = (char)(one_byte_char(str + length - 12, 6, 128));
+		dest[2] = (char)(one_byte_char(str + length - 6, 6, 128));
+	}
+	else
+	{
+		dest[0] = (char)(one_byte_char(str, length - 18, 240));
+		dest[1] = (char)(one_byte_char(str + length - 18, 6, 128));
+		dest[2] = (char)(one_byte_char(str + length - 12, 6, 128));
+		dest[3] = (char)(one_byte_char(str + length - 6, 6, 128));
+	}
+}
+
 char		*wint_tocharray(wint_t ch)
+{
+	char	output[5];
+	char	*temp;
+
+	ft_memset(output, 0, 5);
+	temp = NULL;
+	temp = str_to_bitschar((char*)&ch);
+	add_bytes(output, temp,ft_strlen(temp));
+	ft_memdel((void**)&temp);
+	return (ft_strdup(output));
+}
+
+char		*wchar_tocharray(wchar_t ch)
 {
 	char	output[5];
 	char	temp[32];
@@ -67,7 +104,7 @@ char		*wint_tocharray(wint_t ch)
 	while (i-- >= 0)
 		if ((ch >> i))
 			temp[count++] = (ch >> i & 1) ? '1' : '0';
-	add_bytes(output, temp, count);
+	add_bytes_char(output, temp,ft_strlen(temp));
 	return (ft_strdup(output));
 }
 
@@ -82,7 +119,7 @@ char		*wstr_tocharray(wchar_t *str)
 	i = 0;
 	while (*(str + i))
 	{
-		letter = wint_tocharray(*(str + i));
+		letter = wchar_tocharray((wint_t)(*(str + i)));
 		chararray = ft_stradd(&chararray, letter);
 		ft_memdel((void **)&letter);
 		i++;

@@ -2,11 +2,14 @@
 
 void ft_strdelpart(char **str, size_t start)
 {
-	if (*str!=NULL && start < ft_strlen(*str))
+	char *temp;
+
+	temp = *str;
+	if (temp !=NULL && start < ft_strlen(temp))
 	{
-		while ((*str)[start] != '\0')
+		while (temp[start] != '\0')
 		{
-			(*str)[start] = '\0';
+			temp[start] = '\0';
 			start++;
 		}
 	}

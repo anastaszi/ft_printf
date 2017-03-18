@@ -60,7 +60,7 @@ void	if_so_exit(char c)
 		ft_putstr_fd("'0' is ignored when '-' is present\n", 2);
 	else
 		;
-	exit(1);
+	exit(0);
 }
 
 void	if_so_warning(char c)

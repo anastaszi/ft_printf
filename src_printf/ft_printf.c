@@ -35,11 +35,7 @@ void	arg_manip(t_flag rflag, va_list ap, int *j)
 		va_end(copy);
 	}
 	else
-	{
-		if ((rflag.width_wc == 1) || (rflag.precision_wc == 1))
-			add_wc(ap, &rflag);
 		str = getstr(rflag, ap);
-	}
 	add_flag_params(str, j, rflag);
 }
 

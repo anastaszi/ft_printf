@@ -33,6 +33,7 @@
 # include <stdio.h>
 # include <wchar.h>
 # include <float.h>
+# include <locale.h>
 
 typedef	struct		s_flag
 {

@@ -74,7 +74,7 @@ char		*wint_tocharray(wint_t ch)
 }
 char		*wstrn_tocharray(wchar_t *str, int len)
 {
-		char	*chararray;
+	char	*chararray;
 	char	*letter;
 	int		i;
 
@@ -98,6 +98,7 @@ char		*wstrn_tocharray(wchar_t *str, int len)
 	}
 	return (chararray);
 }
+
 char		*wstr_tocharray(wchar_t *str)
 {
 	char	*chararray;

@@ -98,8 +98,8 @@ void	check_valid_flag(t_flag rflag)
 
 void	correct_flag(t_flag *rflag, va_list ap)
 {
-	if (rflag->flag_zero && rflag->flag_minus)
-		rflag->flag_zero = 0;
+	if ((rflag->width_wc == 1) || (rflag->precision_wc == 1))
+			add_wc(ap, rflag);
 	if (rflag->specifier == 'p')
 		rflag->flag_hash = 1;
 	if (rflag->flag_plus && rflag->flag_space)
@@ -117,13 +117,15 @@ void	correct_flag(t_flag *rflag, va_list ap)
 		rflag->precision_num = get_param_for_flag(ap, rflag->precision_wc_elem);
 	if ((rflag->posix == 1) && (rflag->width_wc == 1))
 		rflag->width = get_param_for_flag(ap, rflag->width_elem);
-	if (rflag->precision && ft_strchr("diouixX", rflag->specifier))
+	if (rflag->precision && !rflag->precision_wc &&ft_strchr("diouixX", rflag->specifier))
 		rflag->flag_zero = 0;
 	if (!rflag->precision_num && ft_strchr("fFeE", rflag->specifier))
 		rflag->flag_zero = 0;
-	if (rflag->width < 0)
+	/*if (rflag->width < 0)
 		{ 
 			rflag->flag_minus = 1;
 			rflag->width = -1 * rflag->width;
-		}	
+		}*/
+	if (rflag->flag_zero && rflag->flag_minus)
+		rflag->flag_zero = 0;	
 }

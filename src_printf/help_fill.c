@@ -46,17 +46,24 @@ void	put_length(t_flag *rflag, const char *str, int i, int *length)
 
 void	add_wc(va_list ap, t_flag *rflag)
 {
+	int i;
+	int m;
+
+	i =  va_arg(ap, int);
+	m = 0;
 	if (rflag->width_wc == 1)
 		{
-			rflag->width = va_arg(ap, int);
-			if (rflag->width < 0)
-			{
-				rflag->width = -1 * rflag->width;
-				rflag->flag_minus = 1;
-			}
+			if (i < 0)
+				{
+					rflag->flag_minus = 1;
+					i = -1 * i;
+				}
+			if (rflag->width_elem == 1 || !rflag->width)
+				rflag->width = i;
+			m++;
 		}
 	if (rflag->precision_wc == 1)
-		rflag->precision_num = va_arg(ap, int);
+		rflag->precision_num = (m) ? va_arg(ap, int) : i;
 }
 
 void	put_wc(t_flag *rflag, const char *str, int i, int *length)
@@ -65,8 +72,12 @@ void	put_wc(t_flag *rflag, const char *str, int i, int *length)
 
 	if (rflag->precision == 1)
 		rflag->precision_wc = 1;
-	else
+	else 
+	{
+		if (rflag->width)
+			rflag->width_elem = 1;
 		rflag->width_wc = 1;
+	}
 	if (rflag->posix == 1)
 	{
 		temp = ft_atoi(str + i + 1 + *length);

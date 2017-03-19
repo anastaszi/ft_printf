@@ -76,14 +76,22 @@ void add_chars(t_flag rflag, int *j, va_list ap)
 		va_end(copy);
 	}
 	else
-	{
-		if ((rflag.width_wc == 1) || (rflag.precision_wc == 1))
-			add_wc(ap, &rflag);
 		i = va_arg(ap, int);
-	}
 	printchar(j, i, rflag);
 }
-
+void small_reverse(char **str, char **temp)
+{
+	if (ft_strlen(*temp) == 1)
+	{
+		(*str)[0] = 'x';
+		(*str)[1] = '0';
+	}
+	else
+	{
+		(*temp)[1] = 'x';
+		(*str)[1] = '0';
+	}
+}
 char	*check_width(char **str, t_flag rflag)
 {
 	char	*temp;
@@ -103,6 +111,8 @@ char	*check_width(char **str, t_flag rflag)
 			temp[0] = (*str)[0];
 			(*str)[0] = '0';
 		}
+	if (rflag.flag_hash && temp && temp[0] == '0')
+		small_reverse(str, &temp);
 	return (temp);
 }
 

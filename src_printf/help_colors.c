@@ -19,7 +19,7 @@ static int	add_color(char *add, int i, int *j, int count)
 	return (i);
 }
 
-static int	get_color(const char *str, int i, int *j)
+int	get_color(const char *str, int i, int *j)
 {
 	int count;
 
@@ -40,16 +40,4 @@ static int	get_color(const char *str, int i, int *j)
 	else
 		count = add_color("{", 0, j, 1);
 	return (count);
-}
-
-void		add_char_or_color_to_str(int *j, const char *str, int *index)
-{
-	if (str[*index] == '%')
-	{
-		ft_putchar('%');
-		*j = *j + 1;
-		*index = *index + 2;
-	}
-	else
-		*index = *index + 1 + get_color(str, *index, j);
 }

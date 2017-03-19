@@ -58,7 +58,7 @@ void	read_flag(t_flag *rflag, const char *str, int i)
 		else if (ft_strchr(LENGTHS, str[i + len]))
 			put_length(rflag, str, i, &len);
 		else
-			if_so_exit('d');
+				break;
 		len++;
 	}
 	if (str[i + len] == '\0')
@@ -107,7 +107,7 @@ void	correct_flag(t_flag *rflag, va_list ap)
 	if (rflag->precision && rflag->precision_num && \
 		ft_strchr("spSCc", rflag->specifier))
 		rflag->flag_zero = 0;
-	if (rflag->flag_hash && !ft_strchr("oxXpfFeE", rflag->specifier))
+	if (rflag->flag_hash && !ft_strchr("oOxXpfFeE", rflag->specifier))
 		rflag->flag_hash = 0;
 	if (rflag->flag_space && !ft_strchr("deEfFi", rflag->specifier))
 		rflag->flag_space = 0;

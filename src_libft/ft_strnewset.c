@@ -16,8 +16,13 @@ char	*ft_strnewset(size_t len, char c)
 {
 	char *temp;
 
-	temp = ft_strnew(len);
-	temp[len] = '\0';
-	ft_memset((char *)temp, c, len);
-	return (temp);
+	if (len > 0)
+	{
+		temp = ft_strnew(len);
+		temp[len] = '\0';
+		ft_memset((char *)temp, c, len);
+		return (temp);
+	}
+	else
+		return (0);
 }

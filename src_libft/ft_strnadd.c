@@ -15,10 +15,12 @@
 char	*ft_strnadd(char **str, const char *add, size_t len)
 {
 	char *new;
-
+	new = NULL;
+	
 	new = ft_strnew(ft_strlen(*str) + len);
 	new = ft_strcpy(new, *str);
-	new = ft_strncat(new, add, len);
+	if (add != NULL && new != NULL)
+		new = ft_strncat(new, add, len);
 	ft_memdel((void**)str);
 	return (new);
 }

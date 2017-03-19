@@ -35,84 +35,14 @@ void check_toread(char **str)
 		temp[i] = '0';
 	}
 }
-
-void add_hash(char **str, t_flag rflag)
-{
-	if (rflag.specifier == 'X' && ft_strlen(*str))
-		*str = ft_straddfirst(str, "0X");
-	else if ((rflag.specifier == 'x' && ft_strlen(*str)) || rflag.specifier == 'p')
-		*str = ft_straddfirst(str, "0x");
-	else if (ft_strchr("oO", rflag.specifier) && ft_strcmp(*str, "0"))
-		*str = ft_straddfirst(str, "0");
-}
-
-
-char *add_numb_precision(char **str, t_flag rflag)
-{
-	char *new;
-	char *nullstr;
-	char *temp;
-	int i;
-	char ch;
-
-	new = NULL;
-	ch = (*str)[0];
-	i = (ft_isdigit(ch)) ? 0 : 1;
-	temp = (i) ? (*str + 1) : *str;
-	new = ft_strnewset((size_t)(rflag.precision_num + i), '\0');
-	if (i)
-		new = ft_straddchar(&new, ch);
-	nullstr = ft_strnewset((size_t)(rflag.precision_num + i - (int)ft_strlen(*str)), '0');
-	new = ft_stradd(&new, nullstr);
-	new = ft_stradd(&new, temp);
-	ft_memdel((void**)&nullstr);
-	ft_memdel((void**)str);
-	return(new);
-}
-char	*check_precision_num(char *str, t_flag rflag)
-{
-	char	*temp;
-	int		len;
-	
-	temp = NULL;
-	if (ft_strchr("dDioOuxX", rflag.specifier) && !rflag.precision_num && (!ft_strcmp(str, "0") || (!ft_isdigit(str[0]) && !ft_strcmp(str + 1, "0"))))
-		ft_strdelpart(&str, 0);
-	if (rflag.flag_hash)
-		add_hash(&str, rflag);
-	if ((len = (int)ft_strlen(str)))
-		temp = ft_stradd(&temp, str);
-	if (ft_strchr("dDioOuxX", rflag.specifier) && rflag.precision_num >= len && temp && rflag.precision)
-		temp = add_numb_precision(&temp, rflag);
-	ft_memdel((void**)&str);
-	return (temp);
-}
-
-char	*check_width(char **str, t_flag rflag)
-{
-	char	*temp;
-	int		len;
-	int		dif;
-
-	temp = NULL;
-	len = (int)ft_strlen(*str);
-	dif = rflag.width - len;
-	if (dif > 0)
-		temp = (rflag.flag_zero == 1 && len) ? ft_strnewset((size_t)dif, '0') \
-	: ft_strnewset((size_t)dif, ' ');
-	if (ft_strchr("fFdDi", rflag.specifier) && temp && \
-		rflag.flag_zero && !ft_isdigit((*str)[0]))
-		{
-			temp[0] = (*str)[0];
-			(*str)[0] = '0';
-		}
-	return (temp);
-}
-
 void printchar(int *j, int i, t_flag rflag)
 {
 	char *width_str;
- 
-	width_str = (rflag.width > 1) ? ft_strnewset((size_t)rflag.width - 1, ' ') : NULL;
+
+	if (rflag.width > 1)
+		width_str = (rflag.flag_zero) ? ft_strnewset((size_t)rflag.width - 1, '0') : ft_strnewset((size_t)rflag.width - 1, ' ');
+	else
+		width_str = NULL;
 	if ((rflag.flag_minus == 1) && (width_str != NULL))
 		{
 			ft_putchar(i);
@@ -154,21 +84,43 @@ void add_chars(t_flag rflag, int *j, va_list ap)
 	printchar(j, i, rflag);
 }
 
-void	add_flag_params(char *str, int *j, t_flag rflag)
+char	*check_width(char **str, t_flag rflag)
 {
 	char	*temp;
+	int		len;
+	int		dif;
+
+	temp = NULL;
+	len = (int)ft_strlen(*str);
+	dif = (rflag.specifier == 'S' && !len &&rflag.precision_num> 0)? 0: (rflag.width - len);
+	if (dif > 0 && rflag.flag_zero == 1 && (len || (!len && rflag.specifier == 'S')))
+		temp = ft_strnewset((size_t)dif, '0');
+	else if (dif > 0)
+		temp = ft_strnewset((size_t)dif, ' ');
+	if (ft_strchr("fFdDi", rflag.specifier) && temp && \
+		rflag.flag_zero && !ft_isdigit((*str)[0]))
+		{
+			temp[0] = (*str)[0];
+			(*str)[0] = '0';
+		}
+	return (temp);
+}
+
+void	add_flag_params(char *str, int *j, t_flag rflag)
+{
 	char	*width_str;
 
-	temp = check_precision_num(str, rflag);
-	width_str = check_width(&temp, rflag);
-	if (ft_strchr("dDi", rflag.specifier) && temp)
-		check_toread(&temp);
-	if ((rflag.flag_minus == 1) && (width_str != NULL))
-		*j = *j + strprint_del(&temp) + strprint_del(&width_str);
+	width_str = check_width(&str, rflag);
+	if (ft_strchr("dDi", rflag.specifier) && str)
+		check_toread(&str);
+	if (width_str != NULL && (rflag.flag_minus == 1 || (rflag.specifier == 'p' && rflag.flag_zero && !ft_strcmp(str, "0x0"))))
+		*j = *j + strprint_del(&str) + strprint_del(&width_str);
 	else if (width_str != NULL)
-		*j = *j + strprint_del(&width_str) + strprint_del(&temp);
-	else if (temp != NULL)
-		*j = *j + strprint_del(&temp);
-	else if (ft_strchr("sS", rflag.specifier))
-		ft_putstr("(null)");
+		*j = *j + strprint_del(&width_str) + strprint_del(&str);
+	else if (ft_strlen(str))
+		*j = *j + strprint_del(&str);
+	else if (ft_strchr("cC", rflag.specifier))
+		*j = *j + 1;
+	else 
+		ft_putstr("");
 }

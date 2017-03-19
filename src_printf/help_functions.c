@@ -45,24 +45,24 @@ void	if_so_exit(char c)
 {
 	ft_putstr_fd(ER, 1);
 	if (c == 'd')
-		ft_putstr_fd("WRONG FLAG FORMAT\n", 2);
+		;//ft_putstr_fd("WRONG FLAG FORMAT\n", 2);
 	else if (c == 'f')
-		ft_putstr_fd("WRONG FLAG\n", 2);
+		;//ft_putstr_fd("WRONG FLAG\n", 2);
 	else if (c == 's')
-		ft_putstr_fd("NO SPECIFIER FOR FLAG\n", 2);
+		;//ft_putstr_fd("NO SPECIFIER FOR FLAG\n", 2);
 	else if (c == 'z')
-		ft_putstr_fd("BAD '0' flag\n", 2);
+		;//ft_putstr_fd("BAD '0' flag\n", 2);
 	else if (c == 'p')
-		ft_putstr_fd("BAD POSIX FLAGS\n", 2);
+		;//ft_putstr_fd("BAD POSIX FLAGS\n", 2);
 	else if (c == 'n')
-		ft_putstr_fd("BAD FLAG FOR 'n' SPECIFIER\n", 2);
+		;//ft_putstr_fd("BAD FLAG FOR 'n' SPECIFIER\n", 2);
 	else if (c == 'm')
-		ft_putstr_fd("'0' is ignored when '-' is present\n", 2);
+		;//ft_putstr_fd("'0' is ignored when '-' is present\n", 2);
 	else if (c == 'c')
-		ft_putstr_fd("Bad input for wint_t\n", 2);
+		;//ft_putstr_fd("Bad input for wint_t\n", 2);
 	else
 		;
-	exit(0);
+	//exit(0);
 }
 
 void	if_so_warning(char c)

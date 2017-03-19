@@ -12,7 +12,7 @@
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
-# define SPECIFS "sSpdDioOuUxXcCeEfFnaAgG"
+# define SPECIFS "sSpdDioOuUxXcCeEfFnaAgG%"
 # define FLAGS "-+ #0"
 # define LENGTHS "lhLjz"
 # define LETTERSMAX "0123456789ABCDEF"
@@ -107,11 +107,11 @@ char				*getstr(t_flag rflag, va_list ap);
 */
 char				*wint_tocharray(wint_t ch);
 char				*wstr_tocharray(wchar_t *str);
+char		*wstrn_tocharray(wchar_t *str, int len);
 /*
 ** COLORS MANIPULATIONS:
 */
-void				add_char_or_color_to_str(int *j, const char *str, \
-		int *index);
+int	get_color(const char *str, int i, int *j);
 /*
 ** HELPING FUNCTIONS:
 */

@@ -46,22 +46,45 @@ void	arg_manip(t_flag rflag, va_list ap, int *j)
 int		check_for_flag(const char *str)
 {
 	if ((str[0] == '%') && (str[1] != '\0'))
-		return (str[1] != '%' ? 1 : 37);
+		return (1);
 	else if ((str[0] == '%') && (str[1] == '\0'))
-		exit(0);
+		return (2);
 	else if (str[0] == '{')
 		return (123);
+	return (0);
+}
+
+void add_bad_width(t_flag rflag, int *j)
+{
+	char *temp;
+	char c;
+
+	c = (rflag.flag_zero) ? '0' : ' ';
+	temp = (rflag.width) ? ft_strnewset(rflag.width, c) : NULL;
+	if ((rflag.flag_minus == 1) && (temp != NULL))
+		{
+			ft_putchar(rflag.specifier);
+			ft_putstr(temp + 1);
+		}
+	else if (temp != NULL)
+		{
+			ft_putstr(temp + 1);
+			ft_putchar(rflag.specifier);
+		}
 	else
-		return (0);
+		ft_putchar(rflag.specifier);
+	*j = *j + (!temp) +ft_strlen(temp);
+	ft_memdel((void**)&temp);
 }
 
 void	add_flagged_params(int *j, int *i, va_list ap, const char *format)
 {
 	t_flag	rflag;
+	int count;
 
-	if (check_for_flag(format + *i) != 1)
-		add_char_or_color_to_str(j, format, i);
-	else
+	if ((count = check_for_flag(format + *i)) == 123)
+		*i = *i + 1 + get_color(format, *i, j);
+	else if (count == 1)
 	{
 		null_t_flag(&rflag);
 		read_flag(&rflag, format, *i);
@@ -72,11 +95,15 @@ void	add_flagged_params(int *j, int *i, va_list ap, const char *format)
 			put_value(j, va_arg(ap, int*));
 		else if (ft_strchr("c", rflag.specifier) && rflag.length == NULL)
 			add_chars(rflag, j, ap);
+		else if (!ft_strchr(SPECIFS, rflag.specifier))
+			add_bad_width(rflag, j);
 		else
 			arg_manip(rflag, ap, j);
 		ft_memdel((void**)&rflag.length);
 		*i = *i + 1 + rflag.index;
 	}
+	else
+		*i = *i + 1;
 }
 
 int		ft_printf(const char *restrict format, ...)

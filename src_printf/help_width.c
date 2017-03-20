@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void check_toread(char **str)
+static void check_toread(char **str)
 {
 	char *temp;
 	char ch;
@@ -35,51 +35,8 @@ void check_toread(char **str)
 		temp[i] = '0';
 	}
 }
-void printchar(int *j, int i, t_flag rflag)
-{
-	char *width_str;
 
-	if (rflag.width > 1)
-		width_str = (rflag.flag_zero) ? ft_strnewset((size_t)rflag.width - 1, '0') : ft_strnewset((size_t)rflag.width - 1, ' ');
-	else
-		width_str = NULL;
-	if ((rflag.flag_minus == 1) && (width_str != NULL))
-		{
-			ft_putchar(i);
-			ft_putstr(width_str);
-		}
-	else if (width_str != NULL)
-		{
-			ft_putstr(width_str);
-			ft_putchar(i);
-		}
-	else
-		ft_putchar(i);
-	*j = *j + 1 + ft_strlen(width_str);
-	ft_memdel((void **)&width_str);
-}
-
-void add_chars(t_flag rflag, int *j, va_list ap)
-{
-	int			i;
-	uintmax_t	temp;
-	va_list		copy;
-	int			num;
-
-	if (rflag.posix == 1)
-	{
-		va_copy(copy, ap);
-		num = rflag.posix_num;
-		while (num-- > 1)
-			temp = va_arg(copy, uintmax_t);
-		i = va_arg(copy, int);
-		va_end(copy);
-	}
-	else
-		i = va_arg(ap, int);
-	printchar(j, i, rflag);
-}
-void small_reverse(char **str, char **temp)
+static void small_reverse(char **str, char **temp)
 {
 	if (ft_strlen(*temp) == 1)
 	{
@@ -113,24 +70,30 @@ char	*check_width(char **str, t_flag rflag)
 		}
 	if (rflag.flag_hash && temp && temp[0] == '0')
 		small_reverse(str, &temp);
+	if (ft_strchr("dDi", rflag.specifier) && str)
+		check_toread(str);
 	return (temp);
 }
 
-void	add_flag_params(char *str, int *j, t_flag rflag)
+void add_bad_width(t_flag rflag, int *j)
 {
-	char	*width_str;
+	char *temp;
+	char c;
 
-	width_str = check_width(&str, rflag);
-	if (ft_strchr("dDi", rflag.specifier) && str)
-		check_toread(&str);
-	if (width_str != NULL && (rflag.flag_minus == 1 || (rflag.specifier == 'p' && rflag.flag_zero && !ft_strcmp(str, "0x0"))))
-		*j = *j + strprint_del(&str) + strprint_del(&width_str);
-	else if (width_str != NULL)
-		*j = *j + strprint_del(&width_str) + strprint_del(&str);
-	else if (ft_strlen(str))
-		*j = *j + strprint_del(&str);
-	else if (ft_strchr("cC", rflag.specifier))
-		*j = *j + 1;
-	else 
-		ft_putstr("");
+	c = (rflag.flag_zero) ? '0' : ' ';
+	temp = (rflag.width) ? ft_strnewset(rflag.width, c) : NULL;
+	if ((rflag.flag_minus == 1) && (temp != NULL))
+		{
+			ft_putchar(rflag.specifier);
+			ft_putstr(temp + 1);
+		}
+	else if (temp != NULL)
+		{
+			ft_putstr(temp + 1);
+			ft_putchar(rflag.specifier);
+		}
+	else
+		ft_putchar(rflag.specifier);
+	*j = *j + (!temp) +ft_strlen(temp);
+	ft_memdel((void**)&temp);
 }

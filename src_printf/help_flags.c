@@ -1,0 +1,103 @@
+#include "ft_printf.h"
+
+static char		*getstr(t_flag rflag, va_list ap)
+{
+	char *str;
+
+	str = NULL;
+	if ((ft_strchr("sS", rflag.specifier)))
+		string_manip(rflag, ap, &str);
+	else if ((ft_strchr("cC", rflag.specifier)))
+		char_manip(ap, &str);	
+	else if ((ft_strchr("diouxXOUDp", rflag.specifier)))
+		{
+			str = int_manip(ap, rflag);
+			check_precision_num(&str, rflag);
+		}
+	else if ((ft_strchr("fFeE", rflag.specifier)))
+	{
+		double_manip(rflag, ap, &str);
+		add_precision_double(&str, rflag);
+	}
+	else if (rflag.specifier == '%')
+		str = ft_stradd(&str, "%");
+	return (str);
+}
+
+static void	print_out(char *str, int *j, t_flag rflag)
+{
+	char	*width_str;
+
+	width_str = check_width(&str, rflag);
+	if (width_str != NULL && (rflag.flag_minus == 1 || (rflag.specifier == 'p' && rflag.flag_zero && !ft_strcmp(str, "0x0"))))
+		*j = *j + strprint_del(&str) + strprint_del(&width_str);
+	else if (width_str != NULL)
+		*j = *j + strprint_del(&width_str) + strprint_del(&str);
+	else if (ft_strlen(str))
+		*j = *j + strprint_del(&str);
+	else if (ft_strchr("cC", rflag.specifier))
+		*j = *j + 1;
+	else 
+		ft_putstr("");
+}
+
+static void	arg_manip(t_flag rflag, va_list ap, int *j)
+{
+	char		*str;
+	uintmax_t	temp;
+	va_list		copy;
+	int			num;
+
+	str = NULL;
+	if (rflag.posix == 1)
+	{
+		va_copy(copy, ap);
+		num = rflag.posix_num;
+		while (num-- > 1)
+			temp = va_arg(copy, uintmax_t);
+		str = getstr(rflag, copy);
+		va_end(copy);
+	}
+	else
+		str = getstr(rflag, ap);
+	print_out(str, j, rflag);
+}
+
+int		check_for_flag(const char *str)
+{
+	if ((str[0] == '%') && (str[1] != '\0'))
+		return (1);
+	else if ((str[0] == '%') && (str[1] == '\0'))
+		return (2);
+	else if (str[0] == '{')
+		return (123);
+	return (0);
+}
+
+void	add_flagged_params(int *j, int *i, va_list ap, const char *format)
+{
+	t_flag	rflag;
+	int count;
+
+	if ((count = check_for_flag(format + *i)) == 123)
+		*i = *i + 1 + get_color(format, *i, j);
+	else if (count == 1)
+	{
+		null_t_flag(&rflag);
+		read_flag(&rflag, format, *i);
+		put_flag_length(&rflag);
+		correct_flag(&rflag, ap);
+		if (rflag.specifier == 'n')
+			put_value(j, va_arg(ap, int*));
+		else if (ft_strchr("c", rflag.specifier) && rflag.length == NULL)
+			add_chars(rflag, j, ap);
+		else if (!ft_strchr(SPECIFS, rflag.specifier))
+			add_bad_width(rflag, j);
+		else
+			arg_manip(rflag, ap, j);
+		ft_memdel((void**)&rflag.length);
+		*i = *i + 1 + rflag.index;
+	}
+	else
+		*i = *i + 1;
+}

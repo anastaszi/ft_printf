@@ -69,7 +69,6 @@ void	add_wc(va_list ap, t_flag *rflag)
 void	put_wc(t_flag *rflag, const char *str, int i, int *length)
 {
 	int temp;
-
 	if (rflag->precision == 1)
 		rflag->precision_wc = 1;
 	else 

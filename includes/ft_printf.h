@@ -33,7 +33,6 @@
 # include <stdio.h>
 # include <wchar.h>
 # include <float.h>
-# include <locale.h>
 
 typedef	struct		s_flag
 {
@@ -68,15 +67,19 @@ typedef union       u_double_bits
     char            u[8];
     double         f;
 }                   t_double_bits;
+
 /*
 ** FT_PRINTF FUNCTIONS:
 */
 int 				ft_printf(const char *restrict format, ...);
+/*
+** FLAGS FUNCTIONS:
+*/
+void				add_flagged_params(int *j, int *i, va_list ap, const char *format);
 int					check_for_flag(const char *str);
 /*
 ** FLAGS READ:
 */
-void				check_valid_flag(t_flag rflag);
 void				null_t_flag(t_flag *rflag);
 void				read_flag(t_flag *rflag, const char *str, int i);
 void				correct_flag(t_flag *rflag, va_list ap);
@@ -95,24 +98,58 @@ void				put_posix(t_flag *rflag, const char *str);
 void				put_pr(t_flag *rflag);
 void				put_flag_length(t_flag *rflag);
 /*
-** ARG_MANUP:
+** WIDTH_MANUP:
 */
-void	add_flag_params(char *str, int *j, t_flag rflag);
-void add_chars(t_flag rflag, int *j, va_list ap);
+void				add_bad_width(t_flag rflag, int *j);
+char				*check_width(char **str, t_flag rflag);
 /*
-** STRING MANIPULATIONS:
+** CHARACTES AND STRING MANIPULATIONS:
 */
-char				*getstr(t_flag rflag, va_list ap);
+void				string_manip(t_flag rflag, va_list ap, char **str);
+void				char_manip(va_list ap, char **str);
+void				add_chars(t_flag rflag, int *j, va_list ap);
 /*
-** WIDE CHARS FUNCTIONS:
+** WIDE CHARS MANIPULATIONS:
 */
 char				*wint_tocharray(wint_t ch);
 char				*wstr_tocharray(wchar_t *str);
-char		*wstrn_tocharray(wchar_t *str, int len);
+char				*wstrn_tocharray(wchar_t *str, int len);
+/*
+** NUMBERS MANIPULATIONS:
+*/
+void				check_precision_num(char **str, t_flag rflag);
+char				*int_manip(va_list ap, t_flag rflag);
+/*
+** ITOA_BASE FUNCTIONS:
+*/
+char				*itoa_long_base(long long value, int base, \
+		t_flag flag, char *str);
+/*
+** FLOAT MANIPULATIONS:
+*/
+void	double_manip(t_flag rflag, va_list ap, char **str);
+void 				add_precision_double(char **str, t_flag rflag);
+/*
+** FLOAT FUNCTIONS_1:
+*/
+void				double_to_char(double num, t_flag flag, int power, char **str);
+void				double_to_science(double num, t_flag flag, int power, char **str);
+/*
+** FLOAT FUNCTIONS_2:
+*/
+int					check_sign(double *num);
+int					check_double(double num, char **str, t_flag flag);
+int					before_after_dot(double num);
+void				add_first(char **str, int i, t_flag flag);
 /*
 ** COLORS MANIPULATIONS:
 */
 int	get_color(const char *str, int i, int *j);
+/*
+** POSIX FUNCTIONS:
+*/
+void				check_posix(const char *str);
+int					get_param_for_flag(va_list ap, int i);
 /*
 ** HELPING FUNCTIONS:
 */
@@ -121,28 +158,7 @@ void				if_so_exit(char c);
 void				if_so_warning(char c);
 int					rank(unsigned long long value, int base);
 char				*str_to_char(int ch);
-/*
-** POSIX FUNCTIONS:
-*/
-void				check_posix(const char *str);
-int					get_param_for_flag(va_list ap, int i);
-/*
-** ITOA_BASE FUNCTIONS:
-*/
-char				*itoa_long_base(long long value, int base, \
-		t_flag flag, char *str);
-/*
-** FLOAT_FUNCTIONS_1:
-*/
-void				double_to_char(double num, t_flag flag, int power, char **str);
-void				double_to_science(double num, t_flag flag, int power, char **str);
-/*
-** FLOAT_FUNCTIONS_2:
-*/
-int					check_sign(double *num);
-int					check_double(double num, char **str, t_flag flag);
-int					before_after_dot(double num);
-void				add_first(char **str, int i, t_flag flag);
+void	put_value(int *j, int *i);
 /*
 ** BITS_FUNCTIONS:
 */

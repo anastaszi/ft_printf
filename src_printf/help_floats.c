@@ -25,6 +25,34 @@ static void check_round(char **str, int *num)
 		}
 }
 
+static void round_modification(char *src, char *dst, int *i, int len)
+{	
+	int temporary;
+
+	temporary = (src[len - 1] > '5' && src[len - 1] < '9') ? 2 : 1;
+	while (*i < len)
+	{
+		if (ft_isdigit(src[len - 1 - *i]))
+			{
+				if (src[len - 1 - *i] != '9' && temporary)
+					{
+						dst[*i] = src[len - 1 - *i] + temporary;
+						temporary--;
+					}
+				else if (src[len - 1 - *i] == '9' && temporary)
+					{
+						dst[*i] = '0';
+						temporary = 1;
+					}
+				else
+					dst[*i] = src[len - 1 - *i] + temporary;
+			}
+			else
+				dst[*i] = src[len - 1 - *i];
+			*i = *i + 1;
+		}
+}
+
 static char *round(char **str)
 {
 	int length;
@@ -40,29 +68,9 @@ static char *round(char **str)
 	if (temp[length - 1] == '9')
 		new[i++] = '0';
 	temporary = (temp[length - 1] > '5' && temp[length - 1] < '9') ? 2 : 1;
-	while (i < length)
-	{
-			if (ft_isdigit(temp[length - 1 - i]))
-			{
-				if (temp[length - 1 - i] != '9' && temporary)
-					{
-						new[i] = temp[length - 1 - i] + temporary;
-						temporary--;
-					}
-				else if (temp[length - 1 - i] == '9' && temporary)
-					{
-						new[i] = '0';
-						temporary = 1;
-					}
-				else
-					new[i] = temp[length - 1 - i] + temporary;
-			}
-			else
-				new[i] = temp[length - 1 - i];
-			i++;
-		}
-	if (new[i - 1] == '0' && temporary)
-		new = ft_straddchar(&new, '1');
+	round_modification(temp, new, &i, length);
+		if (new[i - 1] == '0' && temporary)
+	new = ft_straddchar(&new, '1');
 	ft_strreverse(&new);
 	ft_memdel((void**)str);
 	return (new);

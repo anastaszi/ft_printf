@@ -11,8 +11,8 @@ ft_strcpy.c ft_strsplit.c ft_strdel.c ft_strdup.c ft_strequ.c ft_strjoin.c ft_st
 ft_striteri.c ft_strlcat.c ft_strlen.c ft_strmap.c ft_strmapi.c ft_strnewset.c ft_strncat.c ft_strncmp.c ft_strncpy.c \
 ft_strnew.c ft_strnstr.c ft_strdelpart.c ft_strreverse.c ft_strrchr.c ft_strstr.c ft_strsub.c ft_strtrim.c ft_tolower.c ft_toupper.c \
 ft_chararraylen.c ft_lst_tostring.c ft_del.c ft_lstdelelemfromlst.c ft_topower.c ft_topowerdouble.c ft_strnadd.c
-PRINTFILENAME =   ft_printf.c help_argum.c help_bytes.c help_colors.c help_fill.c help_fill_2.c help_floats.c help_floats_2.c \
-help_functions.c help_itoa.c help_posix.c help_read.c help_string.c help_wchar.c
+PRINTFILENAME =   ft_printf.c help_bytes.c help_chars.c help_colors.c help_flags_fill.c help_flags_fill2.c help_flags.c help_flags_read.c help_floats.c \
+help_floats2.c help_floats3.c help_itoa.c help_number.c help_others.c help_posix.c help_wchar.c help_width.c
 LIBSRCSFLDR = ./src_libft/
 PRINTSRCSFLDR = ./src_printf/
 OBJLFLDR = ./obj/

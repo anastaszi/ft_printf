@@ -14,6 +14,11 @@
 #define WR "\x1b[32mWARNING\x1b[0m: "
 #define ER "\x1b[31mERROR\x1b[0m: "
 
+void	put_value(int *j, int *i)
+{
+	*i = *j;
+}
+
 int		strprint_del(char **str)
 {
 	int count;

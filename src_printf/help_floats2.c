@@ -1,13 +1,5 @@
 #include "ft_printf.h"
 
-int before_after_dot(double num)
-{
-	if (num > 10)
-		return (1 + before_after_dot(num/10));
-	else
-		return (0);
-}
-
 static char *word(char sign, char letter, t_flag flag)
 {
 	if (letter == 'n')
@@ -16,6 +8,14 @@ static char *word(char sign, char letter, t_flag flag)
 		return ((ft_strchr("FGEA", flag.specifier)) ? "INF" : "inf");
 	else
 		return ((ft_strchr("FGEA", flag.specifier)) ? "-INF" : "-inf");
+}
+
+int before_after_dot(double num)
+{
+	if (num > 10)
+		return (1 + before_after_dot(num/10));
+	else
+		return (0);
 }
 
 int check_double(double num, char **str, t_flag flag)

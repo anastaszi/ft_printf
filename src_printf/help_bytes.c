@@ -1,36 +1,47 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   help_bytes.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: azimina <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/03/20 15:30:48 by azimina           #+#    #+#             */
+/*   Updated: 2017/03/20 15:30:51 by azimina          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-char *str_to_bitschar(char *str_nt)
+char	*str_to_bitschar(char *str_nt)
 {
-    char *temp;
-    temp = str_nt;
-    char *str;
-    int count;
-    int i;
-    int j;
+    char	*temp;
+    char	*str;
+    int		count;
+    int		i;
+    int		j;
 
+    temp = str_nt;
     str = ft_strnewset(ft_strlen(str_nt) * 8, 0);
     count = 0;
     i = 0;
     while (i <= (int)(ft_strlen(str_nt) - 1))
     {
-        j = 8;
-        while (j-- > 0)
-            str[count++] = ((temp[i] >> j) & 1) ? '1' : '0';
-        i++;
+	j = 8;
+	while (j-- > 0)
+		str[count++] = ((temp[i] >> j) & 1) ? '1' : '0';
+	i++;
     }
     return (str);
 }
 
-char *double_to_bitschar(double num)
+char	*double_to_bitschar(double num)
 {
-    char *str;
-    int count;
-    int i;
-    int j;
-    t_double_bits a;
-    
-    
+    char		*str;
+    int			count;
+    int			i;
+    int			j;
+    t_double_bits	a;
+
     str = ft_strnewset(sizeof(num) * 8, 0);
     count = 0;
     i = sizeof(num) - 1;

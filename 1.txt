@@ -1,0 +1,475 @@
+Norme: ./1.txt
+Warning: Not a valid file
+Norme: ./Makefile
+Warning: Not a valid file
+Norme: ./author
+Warning: Not a valid file
+Norme: ./src_libft/ft_strdelpart.c
+Norme: ./src_libft/ft_chararraylen.c
+Norme: ./src_libft/ft_putstr.c
+Norme: ./src_libft/ft_strrchr.c
+Norme: ./src_libft/ft_strcmp.c
+Norme: ./src_libft/ft_memcpy.c
+Norme: ./src_libft/ft_strlcat.c
+Norme: ./src_libft/ft_del.c
+Norme: ./src_libft/ft_strnewset.c
+Error: file must end with a single empty line
+Error (line 28, col 0): no newline after block
+Norme: ./src_libft/ft_memmove.c
+Norme: ./src_libft/ft_strncpy.c
+Norme: ./src_libft/ft_lstlen.c
+Norme: ./src_libft/ft_lstadd.c
+Norme: ./src_libft/ft_strsplit.c
+Norme: ./src_libft/ft_lstmap.c
+Norme: ./src_libft/ft_striter.c
+Norme: ./src_libft/ft_putnbr.c
+Norme: ./src_libft/ft_lstprint.c
+Norme: ./src_libft/ft_isdigit.c
+Norme: ./src_libft/ft_strstr.c
+Norme: ./src_libft/ft_stradd.c
+Error (line 15): declarations must be followed by one empty line in ft_stradd
+Error (line 18): spaces at the end of line
+Norme: ./src_libft/ft_memccpy.c
+Norme: ./src_libft/ft_lstdelelemfromlst.c
+Norme: ./src_libft/ft_strdel.c
+Norme: ./src_libft/ft_bzero.c
+Norme: ./src_libft/ft_topower.c
+Norme: ./src_libft/ft_memchr.c
+Norme: ./src_libft/ft_straddfirst.c
+Norme: ./src_libft/ft_isalnum.c
+Norme: ./src_libft/ft_putstr_fd.c
+Norme: ./src_libft/ft_lstiter.c
+Norme: ./src_libft/ft_lstdelone.c
+Norme: ./src_libft/ft_toupper.c
+Norme: ./src_libft/ft_strcpy.c
+Norme: ./src_libft/ft_strdup.c
+Norme: ./src_libft/ft_lstnew.c
+Norme: ./src_libft/ft_putnbr_fd.c
+Norme: ./src_libft/ft_striteri.c
+Norme: ./src_libft/ft_putendl_fd.c
+Norme: ./src_libft/ft_memdel.c
+Norme: ./src_libft/ft_strmap.c
+Norme: ./src_libft/ft_lstlastelem.c
+Norme: ./src_libft/ft_putchar.c
+Norme: ./src_libft/ft_isascii.c
+Norme: ./src_libft/ft_strlen.c
+Norme: ./src_libft/ft_strnstr.c
+Norme: ./src_libft/ft_strnew.c
+Norme: ./src_libft/ft_strsub.c
+Norme: ./src_libft/ft_memalloc.c
+Norme: ./src_libft/ft_strreverse.c
+Error (line 15): declarations in ft_strreverse are bad aligned
+Error (line 15): Space before function name
+Error (line 15): declarations must be followed by one empty line in ft_strreverse
+Error (line 22, col 15): missing space around /
+Norme: ./src_libft/ft_putendl.c
+Norme: ./src_libft/ft_strncat.c
+Norme: ./src_libft/ft_strncmp.c
+Norme: ./src_libft/ft_memcmp.c
+Norme: ./src_libft/ft_itoa.c
+Norme: ./src_libft/ft_strequ.c
+Norme: ./src_libft/ft_lstpush_head.c
+Norme: ./src_libft/ft_putchar_fd.c
+Error (line 15): declarations must be followed by one empty line in ft_putchar_fd
+Norme: ./src_libft/ft_strtrim.c
+Norme: ./src_libft/ft_isalpha.c
+Norme: ./src_libft/ft_lsttotaldel.c
+Norme: ./src_libft/ft_memset.c
+Norme: ./src_libft/ft_strcat.c
+Norme: ./src_libft/ft_tolower.c
+Norme: ./src_libft/ft_strnequ.c
+Norme: ./src_libft/ft_strjoin.c
+Norme: ./src_libft/ft_strclr.c
+Norme: ./src_libft/ft_atoi.c
+Norme: ./src_libft/ft_abc.c
+Error (line 15): Space before function name
+Norme: ./src_libft/ft_lstpush_back.c
+Norme: ./src_libft/ft_lst_tostring.c
+Norme: ./src_libft/ft_strmapi.c
+Norme: ./src_libft/ft_lstindex.c
+Norme: ./src_libft/ft_isprint.c
+Norme: ./src_libft/ft_strnadd.c
+Error: file must end with a single empty line
+Error (line 15): declarations must be followed by one empty line in ft_strnadd
+Error (line 19): spaces at the end of line
+Error (line 26, col 0): no newline after block
+Norme: ./src_libft/ft_lstdel.c
+Norme: ./src_libft/ft_lstevenelem.c
+Norme: ./src_libft/ft_straddchar.c
+Norme: ./src_libft/ft_strchr.c
+Norme: ./src_libft/ft_topowerdouble.c
+Error (line 15): Space before function name
+Norme: ./src_printf/help_posix.c
+Error (line 13): multiple empty lines
+Norme: ./src_printf/ft_printf.c
+Error (line 27): bad indentation
+Error (line 28): bad indentation
+Error (line 29): bad indentation
+Error (line 30): bad indentation
+Norme: ./includes/ft_printf.h
+Error: global scope bad aligned
+Error (line 66): Union u_double_bits bad aligned
+Error (line 66): must have only tabulations between union and u_double_bits.
+Error (line 66, col 13): bad spacing
+Error (line 68): must begin only by tabulations
+Error (line 68): bad indentation
+Error (line 68, col 8): bad spacing
+Error (line 69): must begin only by tabulations
+Error (line 69): bad indentation
+Error (line 69, col 10): bad spacing
+Error (line 70, col 1): bad spacing
+Error (line 75, col 3): bad spacing
+Error (line 79): line has 88 characters
+Error (line 132, col 4): bad spacing
+Error (line 136): line has 84 characters
+Error (line 137): line has 87 characters
+Error (line 162): line has 92 characters
+Error (line 168, col 4): bad spacing
+Norme: ./includes/libft.h
+Error (line 109, col 4): bad spacing
+Norme: ./src_printf/help_n2.c
+Error (line 15): Space before function name
+Error (line 15): bad spacing after put_n_lli
+Error (line 19): Space before function name
+Error (line 19): bad spacing before put_n_im
+Norme: ./src_printf/help_wchar.c
+Error (line 56): bad spacing after wint_tocharray
+Error (line 73): bad spacing before wstrn_tocharray
+Error (line 86, col 3): missing space after break
+Error (line 95, col 2): missing space after return
+Norme: ./src_printf/help_flags_fill2.c
+Error (line 13): multiple empty lines
+Error (line 24): Empty line
+Error (line 26): bad indentation
+Error (line 27): bad indentation
+Error (line 28): bad indentation
+Error (line 29): bad indentation
+Error (line 30): bad indentation
+Error (line 31): bad indentation
+Error (line 32): bad indentation
+Error (line 33): bad indentation
+Error (line 34): bad indentation
+Error (line 35): bad indentation
+Error (line 37): spaces at the end of line
+Norme: ./src_printf/help_others.c
+Error: global scope bad aligned
+Error (line 42): Space before function name
+Error (line 42): declarations must be followed by one empty line in good_number
+Error (line 45): bad indentation
+Error (line 45): spaces at the end of line
+Error (line 48, col 17): missing space around -
+Norme: ./src_printf/help_bytes.c
+Error (line 15): declarations in str_to_bitschar are bad aligned
+Error (line 15): Space before function name
+Error (line 15): declarations in str_to_bitschar must be at the top of the function
+Error (line 17): bad indentation
+Error (line 17): must begin only by tabulations
+Error (line 18): bad indentation
+Error (line 18): must begin only by tabulations
+Error (line 19): bad indentation
+Error (line 19): must begin only by tabulations
+Error (line 20): bad indentation
+Error (line 20): must begin only by tabulations
+Error (line 21): bad indentation
+Error (line 21): must begin only by tabulations
+Error (line 22): bad indentation
+Error (line 22): must begin only by tabulations
+Error (line 24): bad indentation
+Error (line 24): must begin only by tabulations
+Error (line 25): bad indentation
+Error (line 25): must begin only by tabulations
+Error (line 26): bad indentation
+Error (line 26): must begin only by tabulations
+Error (line 27): bad indentation
+Error (line 27): must begin only by tabulations
+Error (line 28): bad indentation
+Error (line 28): must begin only by tabulations
+Error (line 29): bad indentation
+Error (line 29): must begin only by tabulations
+Error (line 30): bad indentation
+Error (line 30): must begin only by tabulations
+Error (line 31): bad indentation
+Error (line 31): must begin only by tabulations
+Error (line 32): bad indentation
+Error (line 32): must begin only by tabulations
+Error (line 33): bad indentation
+Error (line 33): must begin only by tabulations
+Error (line 34): bad indentation
+Error (line 34): must begin only by tabulations
+Error (line 37): declarations in double_to_bitschar are bad aligned
+Error (line 37): Space before function name
+Error (line 37): declarations must be followed by one empty line in double_to_bitschar
+Error (line 39): bad indentation
+Error (line 39): must begin only by tabulations
+Error (line 40): bad indentation
+Error (line 40): must begin only by tabulations
+Error (line 41): bad indentation
+Error (line 41): must begin only by tabulations
+Error (line 42): bad indentation
+Error (line 42): must begin only by tabulations
+Error (line 43): bad indentation
+Error (line 43): must begin only by tabulations
+Error (line 44): bad indentation
+Error (line 44): must begin only by tabulations
+Error (line 44): spaces at the end of line
+Error (line 45): bad indentation
+Error (line 45): must begin only by tabulations
+Error (line 45): spaces at the end of line
+Error (line 46): bad indentation
+Error (line 46): must begin only by tabulations
+Error (line 47): bad indentation
+Error (line 47): must begin only by tabulations
+Error (line 48): bad indentation
+Error (line 48): must begin only by tabulations
+Error (line 49): bad indentation
+Error (line 49): must begin only by tabulations
+Error (line 50): bad indentation
+Error (line 50): must begin only by tabulations
+Error (line 51): bad indentation
+Error (line 51): must begin only by tabulations
+Error (line 52): bad indentation
+Error (line 52): must begin only by tabulations
+Error (line 53): bad indentation
+Error (line 53): must begin only by tabulations
+Error (line 54): bad indentation
+Error (line 54): must begin only by tabulations
+Error (line 55): bad indentation
+Error (line 55): must begin only by tabulations
+Error (line 56): bad indentation
+Error (line 56): must begin only by tabulations
+Error (line 57): bad indentation
+Error (line 57): must begin only by tabulations
+Error (line 60): declarations in str_to_hex are bad aligned
+Error (line 60): Space before function name
+Error (line 62): bad indentation
+Error (line 62): must begin only by tabulations
+Error (line 63): bad indentation
+Error (line 63): must begin only by tabulations
+Error (line 64): bad indentation
+Error (line 64): must begin only by tabulations
+Error (line 65): bad indentation
+Error (line 65): must begin only by tabulations
+Error (line 66): bad indentation
+Error (line 66): must begin only by tabulations
+Error (line 68): bad indentation
+Error (line 68): must begin only by tabulations
+Error (line 68, col 24): missing space around /
+Error (line 69): bad indentation
+Error (line 69): must begin only by tabulations
+Error (line 70): bad indentation
+Error (line 70): must begin only by tabulations
+Error (line 71): bad indentation
+Error (line 71): must begin only by tabulations
+Error (line 72): bad indentation
+Error (line 72): must begin only by tabulations
+Error (line 73): bad indentation
+Error (line 73): must begin only by tabulations
+Error (line 74): bad indentation
+Error (line 74): must begin only by tabulations
+Error (line 75): bad indentation
+Error (line 75): must begin only by tabulations
+Error (line 75, col 20): missing space around /
+Error (line 76): bad indentation
+Error (line 76): must begin only by tabulations
+Error (line 77): bad indentation
+Error (line 77): must begin only by tabulations
+Error (line 77): line has 84 characters
+Error (line 77, col 79): missing space around %
+Error (line 78): bad indentation
+Error (line 78): must begin only by tabulations
+Error (line 79): bad indentation
+Error (line 79): must begin only by tabulations
+Error (line 80): bad indentation
+Error (line 80): must begin only by tabulations
+Error (line 81): bad indentation
+Error (line 81): must begin only by tabulations
+Error (line 81): spaces at the end of line
+Error (line 82): bad indentation
+Error (line 82): must begin only by tabulations
+Error (line 83): bad indentation
+Error (line 83): must begin only by tabulations
+Norme: ./src_printf/help_n.c
+Error: global scope bad aligned
+Error (line 15): Space before function name
+Error (line 20): Space before function name
+Error (line 25): Space before function name
+Error (line 30): Space before function name
+Norme: ./src_printf/help_width.c
+Error: global scope bad aligned
+Error (line 15): declarations in check_toread are bad aligned
+Error (line 15): Space before function name
+Error (line 15): declarations must be followed by one empty line in check_toread
+Error (line 39): Space before function name
+Error (line 39): bad spacing after small_reverse
+Error (line 52): bad spacing before check_width
+Error (line 60): line has 93 characters
+Error (line 60, col 39): missing space around &&
+Error (line 60, col 60): missing space around >
+Error (line 60, col 64): missing space around ?
+Error (line 60, col 67): missing space around :
+Error (line 61): line has 86 characters
+Error (line 67): bad indentation
+Error (line 68): bad indentation
+Error (line 69): bad indentation
+Error (line 70): bad indentation
+Error (line 78): Space before function name
+Error (line 86): bad indentation
+Error (line 87): bad indentation
+Error (line 88): bad indentation
+Error (line 89): bad indentation
+Error (line 91): bad indentation
+Error (line 92): bad indentation
+Error (line 93): bad indentation
+Error (line 94): bad indentation
+Error (line 97, col 19): missing space around +
+Norme: ./src_printf/help_itoa.c
+Norme: ./src_printf/help_number.c
+Error: global scope bad aligned
+Error (line 15): Space before function name
+Error (line 25): Space before function name
+Error (line 29): line has 108 characters
+Error (line 30): bad indentation
+Error (line 35): declarations in add_numb_precision are bad aligned
+Error (line 35): Space before function name
+Error (line 56, col 1): missing space after return
+Error (line 59): Space before function name
+Error (line 63): line has 142 characters
+Error (line 64): bad indentation
+Error (line 67): bad indentation
+Error (line 95): line has 90 characters
+Norme: ./src_printf/help_floats2.c
+Error: global scope bad aligned
+Error (line 15): Space before function name
+Error (line 25): Space before function name
+Error (line 28, col 34): missing space around /
+Error (line 33): declarations in check_double are bad aligned
+Error (line 33): Space before function name
+Error (line 60): Space before function name
+Error (line 67): bad indentation
+Error (line 70): Space before function name
+Norme: ./src_printf/help_floats.c
+Error: global scope bad aligned
+Error (line 15): declarations in check_round are bad aligned
+Error (line 15): Space before function name
+Error (line 25): bad indentation
+Error (line 26): bad indentation
+Error (line 27): bad indentation
+Error (line 28): bad indentation
+Error (line 29): bad indentation
+Error (line 30): bad indentation
+Error (line 31): bad indentation
+Error (line 32): bad indentation
+Error (line 33): bad indentation
+Error (line 34): bad indentation
+Error (line 35): bad indentation
+Error (line 36): bad indentation
+Error (line 36, col 16): missing space around >=
+Error (line 37): bad indentation
+Error (line 40): Space before function name
+Error (line 41): spaces at the end of line
+Error (line 41, col 0): no newline after block
+Error (line 48): bad indentation
+Error (line 49): bad indentation
+Error (line 50): bad indentation
+Error (line 51): bad indentation
+Error (line 52): bad indentation
+Error (line 53): bad indentation
+Error (line 54): bad indentation
+Error (line 55): bad indentation
+Error (line 56): bad indentation
+Error (line 57): bad indentation
+Error (line 58): bad indentation
+Error (line 59): bad indentation
+Error (line 60): bad indentation
+Error (line 61): bad indentation
+Error (line 62): bad indentation
+Error (line 63): bad indentation
+Error (line 64): bad indentation
+Error (line 65): bad indentation
+Error (line 68): declarations in round are bad aligned
+Error (line 68): Space before function name
+Error (line 84): bad indentation
+Error (line 85): bad indentation
+Error (line 91): declarations in double_to_char are bad aligned
+Error (line 91): Space before function name
+Error (line 100, col 32): bad spacing
+Error (line 100, col 52): missing space around /
+Error (line 101, col 8): missing space around /
+Error (line 101, col 28): missing space around /
+Error (line 101, col 53): missing space around /
+Error (line 101, col 66): space before )
+Error (line 102, col 44): missing space around /
+Error (line 104, col 44): missing space around /
+Error (line 105): spaces at the end of line
+Error (line 105, col 23): missing space around /
+Error (line 105, col 31): missing space around *
+Error (line 105, col 39): bad character after ;
+Error (line 107, col 3): missing space after break
+Error (line 111, col 45): missing space around /
+Error (line 117): declarations in double_to_science are bad aligned
+Error (line 117): Space before function name
+Error (line 123, col 12): missing space around /
+Error (line 125): spaces at the end of line
+Error (line 125, col 1): no newline after block
+Error (line 126): spaces at the end of line
+Error (line 126, col 16): bad character after ;
+Error (line 133): bad indentation
+Norme: ./src_printf/help_flags_fill.c
+Error (line 54, col 4): bad spacing
+Error (line 57): bad indentation
+Error (line 58): bad indentation
+Error (line 59): bad indentation
+Error (line 60): bad indentation
+Error (line 61): bad indentation
+Error (line 62): bad indentation
+Error (line 63): bad indentation
+Error (line 64): bad indentation
+Error (line 65): bad indentation
+Error (line 66): bad indentation
+Error (line 71): declarations must be followed by one empty line in put_wc
+Error (line 76): spaces at the end of line
+Norme: ./src_printf/help_flags_read.c
+Error: global scope bad aligned
+Error (line 61): bad indentation
+Error (line 61, col 4): missing space after break
+Error (line 77): bad indentation
+Error (line 91): line has 93 characters
+Error (line 91, col 46): missing space around &&
+Norme: ./src_printf/help_floats3.c
+Error: global scope bad aligned
+Error (line 15): Space before function name
+Error (line 30): declarations in double_manip are bad aligned
+Error (line 39): spaces at the end of line
+Error (line 39, col 1): no newline after block
+Norme: ./src_printf/help_colors.c
+Error: global scope bad aligned
+Norme: ./src_printf/help_flags.c
+Error: global scope bad aligned
+Error (line 23): spaces at the end of line
+Error (line 23, col 22): bad character after ;
+Error (line 25): bad indentation
+Error (line 26): bad indentation
+Error (line 27): bad indentation
+Error (line 28): bad indentation
+Error (line 44): line has 127 characters
+Error (line 52): spaces at the end of line
+Error (line 89): declarations in add_flagged_params are bad aligned
+Norme: ./src_printf/help_chars.c
+Error: global scope bad aligned
+Error (line 15): Space before function name
+Error (line 20): line has 129 characters
+Error (line 24): bad indentation
+Error (line 25): bad indentation
+Error (line 26): bad indentation
+Error (line 27): bad indentation
+Error (line 29): bad indentation
+Error (line 30): bad indentation
+Error (line 31): bad indentation
+Error (line 32): bad indentation
+Error (line 39): Space before function name
+Error (line 60): declarations in string_manip are bad aligned
+Error (line 60): declarations must be followed by one empty line in string_manip
+Error (line 64): spaces at the end of line
+Error (line 72): line has 105 characters
+Error (line 89): declarations must be followed by one empty line in char_manip
+Error (line 92): spaces at the end of line

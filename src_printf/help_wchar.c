@@ -1,11 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   help_wchar.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: azimina <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/03/20 15:34:08 by azimina           #+#    #+#             */
+/*   Updated: 2017/03/20 15:34:12 by azimina          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "ft_printf.h"
 
 static int	one_byte_char(char *str, int length, int add)
 {
-	int sum;
-	int i;
-	int number;
+	int	sum;
+	int	i;
+	int	number;
 
 	sum = 0;
 	i = 0;
@@ -46,8 +57,8 @@ char		*wint_tocharray(wint_t ch)
 {
 	char	output[5];
 	char	temp[32];
-	int		count;
-	int		i;
+	int	count;
+	int	i;
 
 	ft_memset(output, 0, 5);
 	ft_memset(temp, 0, 32);
@@ -59,6 +70,7 @@ char		*wint_tocharray(wint_t ch)
 	add_bytes(output, temp, count);
 	return (ft_strdup(output));
 }
+
 char		*wstrn_tocharray(wchar_t *str, int len)
 {
 	char	*chararray;
@@ -74,14 +86,9 @@ char		*wstrn_tocharray(wchar_t *str, int len)
 		if ((int)(len - ft_strlen(letter)) < 0)
 			break;
 		chararray = ft_stradd(&chararray, letter);
-		len = len - ft_strlen(chararray);
+		len = len - ft_strlen(letter);
 		ft_memdel((void **)&letter);
 		i++;
-	}
-	if (len < 0)
-	{
-		ft_memdel((void**)&chararray);
-		return(NULL);
 	}
 	return (chararray);
 }

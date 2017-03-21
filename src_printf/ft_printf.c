@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: azimina <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/31 12:45:01 by azimina           #+#    #+#             */
-/*   Updated: 2017/03/02 12:36:50 by azimina          ###   ########.fr       */
+/*   Created: 2017/03/20 15:30:25 by azimina           #+#    #+#             */
+/*   Updated: 2017/03/20 15:30:34 by azimina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		ft_printf(const char *restrict format, ...)
 {
-	va_list	ap;
+	va_list		ap;
 	int		i;
 	int		j;
 
@@ -24,10 +24,10 @@ int		ft_printf(const char *restrict format, ...)
 	while (*(format + i) != '\0')
 	{
 		while (!check_for_flag(format + i) && (format[i] != '\0'))
-			{
-				ft_putchar(format[i++]);
-				j++;
-			}
+		{
+			ft_putchar(format[i++]);
+			j++;
+		}
 		if (format[i] != '\0')
 			add_flagged_params(&j, &i, ap, format);
 	}

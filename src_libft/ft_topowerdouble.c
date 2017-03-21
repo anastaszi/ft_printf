@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_topowerdouble.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: azimina <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/03/20 15:37:10 by azimina           #+#    #+#             */
+/*   Updated: 2017/03/20 15:37:11 by azimina          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-double ft_topowerdouble(double num, int i)
+double	ft_topowerdouble(double num, int i)
 {
 	if (num == 0)
 		return (0);

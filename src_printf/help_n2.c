@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strreverse.c                                    :+:      :+:    :+:   */
+/*   help_n2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azimina <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/20 15:36:42 by azimina           #+#    #+#             */
-/*   Updated: 2017/03/20 15:36:45 by azimina          ###   ########.fr       */
+/*   Created: 2017/03/20 15:41:34 by azimina           #+#    #+#             */
+/*   Updated: 2017/03/20 15:41:36 by azimina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_strreverse(char **str)
+void	put_n_lli(int *j, long long int *ch)
 {
-	char	temp;
-	int	i;
-	int	len;
+	*ch = *j;
+}
 
-	len = ft_strlen(*str);
-	i = 0;
-	while (i < len / 2)
-	{
-		temp = (*str)[len - 1 - i];
-		(*str)[len - 1 - i] = (*str)[i];
-		(*str)[i++] = temp;
-	}
+void	put_n_im(int *j, intmax_t *ch)
+{
+	*ch = *j;
+}
+
+void put_n_li(int *j, long int *ch)
+{
+	*ch = *j;
 }

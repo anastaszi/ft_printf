@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   posix_help.c                                       :+:      :+:    :+:   */
+/*   help_posix.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azimina <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/02 12:46:20 by azimina           #+#    #+#             */
-/*   Updated: 2017/03/02 12:49:43 by azimina          ###   ########.fr       */
+/*   Created: 2017/03/20 15:33:55 by azimina           #+#    #+#             */
+/*   Updated: 2017/03/20 15:33:56 by azimina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ void		check_posix(const char *str)
 			sum = sum + elem;
 			i = i + rank(elem, 10);
 			if (*(str + i) != '$')
-				if_so_exit(4);
+				;
 			flags++;
 		}
 		i++;
 	}
 	if (sum != sum_should_be(flags))
-		if_so_exit(4);
+		;
 }
 
 int			get_param_for_flag(va_list ap, int i)

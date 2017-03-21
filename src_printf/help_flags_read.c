@@ -1,16 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   flags_manip.c                                      :+:      :+:    :+:   */
+/*   help_flags_read.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azimina <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/16 12:24:50 by azimina           #+#    #+#             */
-/*   Updated: 2017/03/02 12:42:26 by azimina          ###   ########.fr       */
+/*   Created: 2017/03/20 15:32:10 by azimina           #+#    #+#             */
+/*   Updated: 2017/03/20 15:32:12 by azimina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+int	read_flag(t_flag *rflag, const char *str, int *i, va_list ap)
+{
+	int len;
+
+	len = 1;
+	while (!ft_strchr(SPECIFS, str[*i + len]) && (str[*i + len] != '\0'))
+	{
+		if (ft_strchr(FLAGS, str[*i + len]))
+			put_flag(rflag, str[*i + len]);
+		else if (ft_isdigit(str[*i + len]))
+			put_width(rflag, str, *i, &len);
+		else if (str[*i + len] == '*')
+			put_wc(rflag, str, *i, &len);
+		else if (str[*i + len] == '.')
+			put_pr(rflag);
+		else if (str[*i + len] == '$')
+			put_posix(rflag, str);
+		else if (ft_strchr(LENGTHS, str[*i + len]))
+			put_length(rflag, str + *i, &len, ap);
+		else
+				break;
+		len++;
+	}
+	rflag->specifier = str[*i + len];
+	rflag->index = len;
+	*i = ((str[*i + len] == '\0') ? ft_strlen((char*)str) : *i + 1 + len);
+	return ((rflag->specifier == '\0') ? 0 : 1);
+}
 
 void	null_t_flag(t_flag *rflag)
 {
@@ -36,47 +65,11 @@ void	null_t_flag(t_flag *rflag)
 	rflag->tint = 0;
 	rflag->tchar = 0;
 	rflag->tsizet = 0;
+	rflag->bad = 0;
 }
 
-void	read_flag(t_flag *rflag, const char *str, int i)
-{
-	int len;
 
-	len = 1;
-	while (!ft_strchr(SPECIFS, str[i + len]) && (str[i + len] != '\0'))
-	{
-		if (ft_strchr(FLAGS, str[i + len]))
-			put_flag(rflag, str[i + len]);
-		else if (ft_isdigit(str[i + len]))
-			put_width(rflag, str, i, &len);
-		else if (str[i + len] == '*')
-			put_wc(rflag, str, i, &len);
-		else if (str[i + len] == '.')
-			put_pr(rflag);
-		else if (str[i + len] == '$')
-			put_posix(rflag, str);
-		else if (ft_strchr(LENGTHS, str[i + len]))
-			put_length(rflag, str, i, &len);
-		else
-				break;
-		len++;
-	}
-	if (str[i + len] == '\0')
-		if_so_exit('s');
-	rflag->specifier = str[i + len];
-	rflag->index = len;
-}
-/*
-void	check_not_null_l(t_flag rflag)
-{
-	if (ft_strchr("cs", rflag.specifier) && ft_strcmp(rflag.length, "l"))
-		if_so_warning('s');
-	if (ft_strchr(NOFLAGS, rflag.specifier))
-		if_so_warning('n');
-	if (ft_strchr("eEfF", rflag.specifier) && ft_strcmp(rflag.length, "l"))
-		if_so_warning('n');
-}
-*/
+
 void	correct_flag(t_flag *rflag, va_list ap)
 {
 	if ((rflag->posix == 1) && (rflag->precision_wc == 1))
@@ -87,22 +80,20 @@ void	correct_flag(t_flag *rflag, va_list ap)
 			add_wc(ap, rflag);
 	if (rflag->specifier == 'p')
 		rflag->flag_hash = 1;
-	if (rflag->flag_plus && rflag->flag_space)
-		rflag->flag_space = 0;
-	if (rflag->precision && rflag->precision_num && \
-		ft_strchr("spSCc", rflag->specifier))
-		rflag->flag_zero = 0;
 	if (rflag->flag_hash && !ft_strchr("oOxXpfFeE", rflag->specifier))
 		rflag->flag_hash = 0;
-	if (rflag->flag_space && !ft_strchr("deEfFi", rflag->specifier))
+	if ((rflag->flag_plus && rflag->flag_space) || (rflag->flag_space && \
+		!ft_strchr("dDeEfFi", rflag->specifier)))
 		rflag->flag_space = 0;
-	if (rflag->flag_plus && !ft_strchr("deEfFi", rflag->specifier))
+	if ((rflag->precision && rflag->precision_num && ft_strchr("spSCc", \
+		rflag->specifier)) || (rflag->flag_zero && rflag->flag_minus))
+		rflag->flag_zero = 0;
+	if ((rflag->precision && !rflag->precision_wc && ft_strchr("dDioOuixX", \
+		rflag->specifier)) || (!rflag->precision_num && ft_strchr("fFeE", \
+		rflag->specifier)))
+		rflag->flag_zero = 0;
+	if (rflag->flag_plus && !ft_strchr("dDeEfFi", rflag->specifier))
 		rflag->flag_plus = 0;
-	
-	if (rflag->precision && !rflag->precision_wc &&ft_strchr("diouixX", rflag->specifier))
-		rflag->flag_zero = 0;
-	if (!rflag->precision_num && ft_strchr("fFeE", rflag->specifier))
-		rflag->flag_zero = 0;
-	if (rflag->flag_zero && rflag->flag_minus)
-		rflag->flag_zero = 0;
+	if (rflag->bad)
+		rflag->specifier = 'd';
 }

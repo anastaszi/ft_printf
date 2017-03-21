@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   flags_fill_2.c                                     :+:      :+:    :+:   */
+/*   help_flags_fill2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azimina <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/02 11:35:12 by azimina           #+#    #+#             */
-/*   Updated: 2017/03/02 11:38:31 by azimina          ###   ########.fr       */
+/*   Created: 2017/03/20 15:31:50 by azimina           #+#    #+#             */
+/*   Updated: 2017/03/20 15:31:52 by azimina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,17 @@ void		put_posix(t_flag *rflag, const char *str)
 {
 
 	if (!rflag->posix)
+	{
+		rflag->posix = 1;
+		if (rflag->width != 0)
 		{
-			rflag->posix = 1;
-			if (rflag->width != 0)
-			{
-				rflag->posix_num = rflag->width;
-				rflag->width = 0;
-			}
-			else
-			if_so_exit('p');
+			rflag->posix_num = rflag->width;
+			rflag->width = 0;
 		}
-	check_posix(str);
-	
+		else
+			;
+	}
+	check_posix(str);	
 }
 
 static void	put_for_other_specif(t_flag *rflag)

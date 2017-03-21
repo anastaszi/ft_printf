@@ -1,16 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_manip.c                                        :+:      :+:    :+:   */
+/*   help_number.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azimina <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/02 12:45:29 by azimina           #+#    #+#             */
-/*   Updated: 2017/03/02 12:45:49 by azimina          ###   ########.fr       */
+/*   Created: 2017/03/20 15:33:36 by azimina           #+#    #+#             */
+/*   Updated: 2017/03/20 15:33:38 by azimina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+static void check_int(long long int *temp, t_flag rflag)
+{
+	if (rflag.tchar)
+		good_number(temp, CHAR_MAX, CHAR_MIN);
+	if (rflag.tshort)
+		good_number(temp, SHRT_MAX, SHRT_MIN);
+	if (rflag.tint)
+		good_number(temp, INT_MAX, INT_MIN);
+}
 
 static void add_hash(char **str, t_flag rflag)
 {
@@ -63,9 +73,9 @@ char	*int_manip(va_list ap, t_flag rflag)
 {
 	long long temp;
 
-	if ((rflag.tint == 1) || (rflag.tshort == 1) || (rflag.tchar == 1))
+	if ((rflag.tint || rflag.tshort || rflag.tchar) && !rflag.bad)
 		temp = va_arg(ap, int);
-	else if ((rflag.tlong == 1) && (rflag.tsizet == 0))
+	else if (((rflag.tlong == 1) && !rflag.tsizet) || rflag.bad)
 		temp = va_arg(ap, long int);
 	else if (rflag.tlonglong == 1)
 		temp = va_arg(ap, long long int);
@@ -73,6 +83,8 @@ char	*int_manip(va_list ap, t_flag rflag)
 		temp = va_arg(ap, size_t);
 	else
 		temp = va_arg(ap, intmax_t);
+	if (!rflag.bad)
+		check_int(&temp, rflag);
 	if (rflag.specifier == 'X')
 		return (itoa_long_base(temp, 16, rflag, LETTERSMAX));
 	else if (rflag.specifier == 'x')

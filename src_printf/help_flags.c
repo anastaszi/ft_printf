@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   help_flags.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: azimina <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/03/20 15:32:29 by azimina           #+#    #+#             */
+/*   Updated: 2017/03/20 15:32:31 by azimina          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 static char		*getstr(t_flag rflag, va_list ap)
@@ -84,19 +96,20 @@ void	add_flagged_params(int *j, int *i, va_list ap, const char *format)
 	else if (count == 1)
 	{
 		null_t_flag(&rflag);
-		read_flag(&rflag, format, *i);
-		put_flag_length(&rflag);
-		correct_flag(&rflag, ap);
-		if (rflag.specifier == 'n')
-			put_value(j, va_arg(ap, int*));
-		else if (ft_strchr("c", rflag.specifier) && rflag.length == NULL)
-			add_chars(rflag, j, ap);
-		else if (!ft_strchr(SPECIFS, rflag.specifier))
-			add_bad_width(rflag, j);
-		else
-			arg_manip(rflag, ap, j);
-		ft_memdel((void**)&rflag.length);
-		*i = *i + 1 + rflag.index;
+		if (read_flag(&rflag, format, i, ap))
+		{
+			put_flag_length(&rflag);
+			correct_flag(&rflag, ap);
+			if (rflag.specifier == 'n')
+				put_n_value(j, ap, rflag);
+			else if (ft_strchr("c", rflag.specifier) && rflag.length == NULL)
+				add_chars(rflag, j, ap);
+			else if (!ft_strchr(SPECIFS, rflag.specifier))
+				add_bad_width(rflag, j);
+			else
+				arg_manip(rflag, ap, j);
+			ft_memdel((void**)&rflag.length);
+		}
 	}
 	else
 		*i = *i + 1;

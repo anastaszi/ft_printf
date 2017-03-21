@@ -15,7 +15,7 @@
 char	*ft_stradd(char **str, char *add)
 {
 	char *new;
-	
+
 	new = NULL;
 	new = ft_strnew(ft_strlen(*str) + ft_strlen(add));
 	new = ft_strcpy(new, *str);

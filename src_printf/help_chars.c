@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   help_chars.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: azimina <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/03/20 15:31:03 by azimina           #+#    #+#             */
+/*   Updated: 2017/03/20 15:31:04 by azimina          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 static void printchar(int *j, int i, t_flag rflag)
@@ -79,8 +91,5 @@ void	char_manip(va_list ap, char **str)
 	wint_t i;
 	
 	i = va_arg(ap, wint_t);
-		//if (i < 256)
 	*str = wint_tocharray(i);
-		//else
-			//	if_so_exit('c');
 }

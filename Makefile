@@ -12,7 +12,7 @@ ft_striteri.c ft_strlcat.c ft_strlen.c ft_strmap.c ft_strmapi.c ft_strnewset.c f
 ft_strnew.c ft_strnstr.c ft_strdelpart.c ft_strreverse.c ft_strrchr.c ft_strstr.c ft_strsub.c ft_strtrim.c ft_tolower.c ft_toupper.c \
 ft_chararraylen.c ft_lst_tostring.c ft_del.c ft_lstdelelemfromlst.c ft_topower.c ft_topowerdouble.c ft_strnadd.c
 PRINTFILENAME =   ft_printf.c help_bytes.c help_chars.c help_colors.c help_flags_fill.c help_flags_fill2.c help_flags.c help_flags_read.c help_floats.c \
-help_floats2.c help_floats3.c help_itoa.c help_number.c help_others.c help_posix.c help_wchar.c help_width.c
+help_floats2.c help_floats3.c help_itoa.c help_n.c help_n2.c help_number.c help_others.c help_posix.c help_wchar.c help_width.c
 LIBSRCSFLDR = ./src_libft/
 PRINTSRCSFLDR = ./src_printf/
 OBJLFLDR = ./obj/
@@ -50,6 +50,3 @@ fclean: clean
 	@/bin/rm -f $(NAME)
 
 re: fclean all
-
-
-

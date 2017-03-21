@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   flags_fill.c                                       :+:      :+:    :+:   */
+/*   help_flags_fill.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azimina <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/02 12:24:45 by azimina           #+#    #+#             */
-/*   Updated: 2017/03/02 12:26:10 by azimina          ###   ########.fr       */
+/*   Created: 2017/03/20 15:31:34 by azimina           #+#    #+#             */
+/*   Updated: 2017/03/20 15:31:36 by azimina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,28 @@ void	put_flag(t_flag *rflag, char c)
 	else if (c == '#')
 		rflag->flag_hash = 1;
 	else
-		if_so_exit('f');
+		;
 }
 
-void	put_length(t_flag *rflag, const char *str, int i, int *length)
+void	put_length(t_flag *rflag, const char *str, int *length, va_list ap)
 {
-	if ((str[i + *length] == 'h') && (str[i + 1 + *length] == 'h'))
+	if ((*rflag).length != NULL)
+	{
+		rflag->bad = 1;
+		va_end(ap);
+	}
+	else if ((str[*length] == 'h') && (str[1 + *length] == 'h'))
 	{
 		(*rflag).length = ft_strdup("hh");
 		*length = *length + 1;
 	}
-	else if ((str[i + *length] == 'l') && (str[i + 1 + *length] == 'l'))
+	else if ((str[*length] == 'l') && (str[1 + *length] == 'l'))
 	{
 		(*rflag).length = ft_strdup("ll");
 		*length = *length + 1;
 	}
 	else
-		(*rflag).length = str_to_char((int)str[i + *length]);
+		(*rflag).length = str_to_char((int)str[*length]);
 }
 
 void	add_wc(va_list ap, t_flag *rflag)

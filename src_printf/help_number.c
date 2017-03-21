@@ -42,7 +42,7 @@ static char *add_numb_precision(char **str, t_flag rflag)
 
 	new = NULL;
 	ch = (*str)[0];
-	i = (ft_isdigit(ch)) ? 0 : 1;
+	i = (!ft_strchr("+- ", ch)) ? 0 : 1;
 	temp = (i) ? (*str + 1) : *str;
 	new = ft_strnewset((size_t)(rflag.precision_num + i), '\0');
 	if (i)

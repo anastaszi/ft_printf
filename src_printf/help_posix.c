@@ -12,46 +12,6 @@
 
 #include "ft_printf.h"
 
-static int	sum_should_be(int i)
-{
-	int sum;
-
-	sum = 0;
-	while (i > 0)
-	{
-		sum = sum + i;
-		i--;
-	}
-	return (sum);
-}
-
-void		check_posix(const char *str)
-{
-	int flags;
-	int sum;
-	int elem;
-	int i;
-
-	flags = 0;
-	sum = 0;
-	i = 0;
-	while (*(str + i))
-	{
-		if (*str == '%')
-		{
-			elem = ft_atoi(str + i);
-			sum = sum + elem;
-			i = i + rank(elem, 10);
-			if (*(str + i) != '$')
-				;
-			flags++;
-		}
-		i++;
-	}
-	if (sum != sum_should_be(flags))
-		;
-}
-
 int			get_param_for_flag(va_list ap, int i)
 {
 	uintmax_t	current;

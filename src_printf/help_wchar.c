@@ -6,17 +6,17 @@
 /*   By: azimina <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 15:34:08 by azimina           #+#    #+#             */
-/*   Updated: 2017/03/20 15:34:12 by azimina          ###   ########.fr       */
+/*   Updated: 2017/03/21 12:24:35 by azimina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	one_byte_char(char *str, int length, int add)
+static int	b_char(char *str, int length, int add)
 {
-	int	sum;
-	int	i;
-	int	number;
+	int		sum;
+	int		i;
+	int		number;
 
 	sum = 0;
 	i = 0;
@@ -29,46 +29,46 @@ static int	one_byte_char(char *str, int length, int add)
 	return (sum + add);
 }
 
-static void	add_bytes(char *dest, char *str, int length)
+static void	add_bytes(char **dest, char *str, int len)
 {
-	if (length < 8)
-		dest[0] = (char)(one_byte_char(str, length, 0));
-	else if (length > 7 && length < 12)
+	if (len < 8)
+		*dest = ft_straddchar(dest, (char)(b_char(str, len, 0)));
+	else if (len > 7 && len < 12)
 	{
-		dest[0] = (char)(one_byte_char(str, length - 6, 192));
-		dest[1] = (char)(one_byte_char(str + length - 6, 6, 128));
+		*dest = ft_straddchar(dest, (char)(b_char(str, len - 6, 192)));
+		*dest = ft_straddchar(dest, (char)(b_char(str + len - 6, 6, 128)));
 	}
-	else if (length > 11 && length < 17)
+	else if (len > 11 && len < 17)
 	{
-		dest[0] = (char)(one_byte_char(str, length - 12, 224));
-		dest[1] = (char)(one_byte_char(str + length - 12, 6, 128));
-		dest[2] = (char)(one_byte_char(str + length - 6, 6, 128));
+		*dest = ft_straddchar(dest, (char)(b_char(str, len - 12, 224)));
+		*dest = ft_straddchar(dest, (char)(b_char(str + len - 12, 6, 128)));
+		*dest = ft_straddchar(dest, (char)(b_char(str + len - 6, 6, 128)));
 	}
 	else
 	{
-		dest[0] = (char)(one_byte_char(str, length - 18, 240));
-		dest[1] = (char)(one_byte_char(str + length - 18, 6, 128));
-		dest[2] = (char)(one_byte_char(str + length - 12, 6, 128));
-		dest[3] = (char)(one_byte_char(str + length - 6, 6, 128));
+		*dest = ft_straddchar(dest, (char)(b_char(str, len - 18, 240)));
+		*dest = ft_straddchar(dest, (char)(b_char(str + len - 18, 6, 128)));
+		*dest = ft_straddchar(dest, (char)(b_char(str + len - 12, 6, 128)));
+		*dest = ft_straddchar(dest, (char)(b_char(str + len - 6, 6, 128)));
 	}
 }
 
 char		*wint_tocharray(wint_t ch)
 {
-	char	output[5];
+	char	*output;
 	char	temp[32];
-	int	count;
-	int	i;
+	int		count;
+	int		i;
 
-	ft_memset(output, 0, 5);
-	ft_memset(temp, 0, 32);
+	output = NULL;
+	ft_memset(temp, '\0', 32);
 	count = 0;
 	i = 31;
 	while (i-- >= 0)
 		if ((ch >> i))
 			temp[count++] = (ch >> i & 1) ? '1' : '0';
-	add_bytes(output, temp, count);
-	return (ft_strdup(output));
+	add_bytes(&output, temp, count);
+	return (output);
 }
 
 char		*wstrn_tocharray(wchar_t *str, int len)
@@ -84,7 +84,10 @@ char		*wstrn_tocharray(wchar_t *str, int len)
 	{
 		letter = wint_tocharray(*(str + i));
 		if ((int)(len - ft_strlen(letter)) < 0)
-			break;
+			{
+				ft_memdel((void **)&letter);
+				break ;
+			}
 		chararray = ft_stradd(&chararray, letter);
 		len = len - ft_strlen(letter);
 		ft_memdel((void **)&letter);

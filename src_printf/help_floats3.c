@@ -6,13 +6,13 @@
 /*   By: azimina <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 15:32:58 by azimina           #+#    #+#             */
-/*   Updated: 2017/03/20 15:33:02 by azimina          ###   ########.fr       */
+/*   Updated: 2017/03/21 13:18:46 by azimina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void add_precision_double(char **str, t_flag rflag)
+void	add_precision_double(char **str, t_flag rflag)
 {
 	char *nullstr;
 
@@ -29,14 +29,14 @@ void add_precision_double(char **str, t_flag rflag)
 
 void	double_manip(t_flag rflag, va_list ap, char **str)
 {
-	double num;
-	int power;
-	int i;
+	double	num;
+	int		power;
+	int		i;
 
 	num = va_arg(ap, double);
 	i = 0;
 	if (!check_double(num, str, rflag))
-	{	
+	{
 		i = check_sign(&num);
 		power = before_after_dot(num);
 		if ((ft_strchr("fF", rflag.specifier)))

@@ -6,28 +6,28 @@
 /*   By: azimina <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 15:33:21 by azimina           #+#    #+#             */
-/*   Updated: 2017/03/20 15:33:23 by azimina          ###   ########.fr       */
+/*   Updated: 2017/03/21 13:44:08 by azimina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void put_n_char(int *j, signed char *ch)
+static void	put_n_char(int *j, signed char *ch)
 {
 	*ch = (signed char)*j;
 }
 
-static void put_n_si(int *j, short int *ch)
+static void	put_n_si(int *j, short int *ch)
 {
 	*ch = (short int)*j;
 }
 
-static void put_n_i(int *j, int *ch)
+static void	put_n_i(int *j, int *ch)
 {
 	*ch = *j;
 }
 
-static void get_n(int *j, va_list ap, t_flag rflag)
+static void	get_n(int *j, va_list ap, t_flag rflag)
 {
 	if (rflag.tchar == 1)
 		put_n_char(j, va_arg(ap, signed char*));
@@ -50,7 +50,7 @@ static void get_n(int *j, va_list ap, t_flag rflag)
 		put_n_i(j, va_arg(ap, int*));
 }
 
-void	put_n_value(int *j, va_list ap, t_flag rflag)
+void		put_n_value(int *j, va_list ap, t_flag rflag)
 {
 	uintmax_t	temp;
 	va_list		copy;

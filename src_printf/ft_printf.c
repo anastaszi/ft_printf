@@ -6,7 +6,7 @@
 /*   By: azimina <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 15:30:25 by azimina           #+#    #+#             */
-/*   Updated: 2017/03/20 15:30:34 by azimina          ###   ########.fr       */
+/*   Updated: 2017/03/21 12:23:28 by azimina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		ft_printf(const char *restrict format, ...)
 {
-	va_list		ap;
+	va_list	ap;
 	int		i;
 	int		j;
 
@@ -23,7 +23,7 @@ int		ft_printf(const char *restrict format, ...)
 	j = 0;
 	while (*(format + i) != '\0')
 	{
-		while (!check_for_flag(format + i) && (format[i] != '\0'))
+		while (format[i] != '%' && format[i] != '{' && format[i] != '\0')
 		{
 			ft_putchar(format[i++]);
 			j++;

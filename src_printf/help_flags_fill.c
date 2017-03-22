@@ -6,7 +6,7 @@
 /*   By: azimina <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 15:31:34 by azimina           #+#    #+#             */
-/*   Updated: 2017/03/20 15:31:36 by azimina          ###   ########.fr       */
+/*   Updated: 2017/03/21 13:38:35 by azimina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,19 +54,19 @@ void	add_wc(va_list ap, t_flag *rflag)
 	int i;
 	int m;
 
-	i =  va_arg(ap, int);
+	i = va_arg(ap, int);
 	m = 0;
 	if (rflag->width_wc == 1)
+	{
+		if (i < 0)
 		{
-			if (i < 0)
-				{
-					rflag->flag_minus = 1;
-					i = -1 * i;
-				}
-			if (rflag->width_elem == 1 || !rflag->width)
-				rflag->width = i;
-			m++;
+			rflag->flag_minus = 1;
+			i = -1 * i;
 		}
+		if (rflag->width_elem == 1 || !rflag->width)
+			rflag->width = i;
+		m++;
+	}
 	if (rflag->precision_wc == 1)
 		rflag->precision_num = (m) ? va_arg(ap, int) : i;
 }
@@ -74,9 +74,10 @@ void	add_wc(va_list ap, t_flag *rflag)
 void	put_wc(t_flag *rflag, const char *str, int i, int *length)
 {
 	int temp;
+
 	if (rflag->precision == 1)
 		rflag->precision_wc = 1;
-	else 
+	else
 	{
 		if (rflag->width)
 			rflag->width_elem = 1;

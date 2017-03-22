@@ -6,7 +6,7 @@
 /*   By: azimina <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 15:31:16 by azimina           #+#    #+#             */
-/*   Updated: 2017/03/20 15:31:18 by azimina          ###   ########.fr       */
+/*   Updated: 2017/03/21 13:19:19 by azimina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	add_color(char *add, int i, int *j, int count)
 	return (i);
 }
 
-int	get_color(const char *str, int i, int *j)
+int			get_color(const char *str, int i, int *j)
 {
 	int count;
 

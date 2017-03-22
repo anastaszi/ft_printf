@@ -6,7 +6,7 @@
 /*   By: azimina <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 15:37:46 by azimina           #+#    #+#             */
-/*   Updated: 2017/03/20 15:37:48 by azimina          ###   ########.fr       */
+/*   Updated: 2017/03/21 12:22:15 by azimina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,68 +35,69 @@
 # include <wchar.h>
 # include <float.h>
 
-typedef	struct		s_flag
+typedef	struct	s_flag
 {
 	char		specifier;
-	int		flag_space;
-	int		flag_plus;
-	int		flag_minus;
-	int		flag_zero;
-	int		flag_hash;
-	int		width;
-	int		width_wc;
-	int		width_elem;
-	int		precision;
-	int		precision_num;
-	int		precision_wc;
-	int		precision_wc_elem;
-	int		posix;
-	int		posix_num;
+	int			flag_space;
+	int			flag_plus;
+	int			flag_minus;
+	int			flag_zero;
+	int			flag_hash;
+	int			width;
+	int			width_wc;
+	int			width_elem;
+	int			precision;
+	int			precision_num;
+	int			precision_wc;
+	int			precision_wc_elem;
+	int			posix;
+	int			posix_num;
 	char		*length;
-	int		index;
-	int		tshort;
-	int		tlong;
-	int		tlonglong;
-	int		tintmax;
-	int		tint;
-	int		tchar;
-	int		tsizet;
-	int 			bad;
-}			t_flag;
+	int			index;
+	int			tshort;
+	int			tlong;
+	int			tlonglong;
+	int			tintmax;
+	int			tint;
+	int			tchar;
+	int			tsizet;
+	int			bad;
+}				t_flag;
 
-typedef union		u_double_bits
+typedef union	u_double_bits
 {
-	char            u[8];
+	char		u[8];
 	double		f;
-}			t_double_bits;
+}				t_double_bits;
 
 /*
 ** FT_PRINTF FUNCTIONS:
 */
-int			ft_printf(const char *restrict format, ...);
+int				ft_printf(const char *restrict format, ...);
 /*
 ** FLAGS FUNCTIONS:
 */
-void			add_flagged_params(int *j, int *i, va_list ap, const char *format);
-int			check_for_flag(const char *str);
+void			add_flagged_params(int *j, int *i, va_list ap, \
+		const char *format);
 /*
 ** FLAGS READ:
 */
 void			null_t_flag(t_flag *rflag);
-int			read_flag(t_flag *rflag, const char *str, int *i, va_list ap);
+int				read_flag(t_flag *rflag, const char *str, int *i, va_list ap);
 void			correct_flag(t_flag *rflag, va_list ap);
 /*
 ** FLAGS FILL_1:
 */
 void			add_wc(va_list ap, t_flag *rflag);
 void			put_flag(t_flag *rflag, char c);
-void			put_length(t_flag *rflag, const char *str, int *len, va_list ap);
+void			put_length(t_flag *rflag, const char *str, int *len, \
+		va_list ap);
 void			put_wc(t_flag *rflag, const char *str, int i, int *length);
 void			put_width(t_flag *rflag, const char *str, int i, int *len);
 /*
 ** FLAGS FILL_2:
 */
-void			put_posix(t_flag *rflag, const char *str);
+void			put_posix(t_flag *rflag);
 void			put_pr(t_flag *rflag);
 void			put_flag_length(t_flag *rflag);
 /*
@@ -130,7 +131,7 @@ char			*itoa_long_base(long long value, int base, \
 ** FLOAT MANIPULATIONS:
 */
 void			double_manip(t_flag rflag, va_list ap, char **str);
-void 			add_precision_double(char **str, t_flag rflag);
+void			add_precision_double(char **str, t_flag rflag);
 /*
 ** FLOAT FUNCTIONS_1:
 */
@@ -141,24 +142,23 @@ void			double_to_science(double num, t_flag flag, int power, \
 /*
 ** FLOAT FUNCTIONS_2:
 */
-int			check_sign(double *num);
-int			check_double(double num, char **str, t_flag flag);
-int			before_after_dot(double num);
+int				check_sign(double *num);
+int				check_double(double num, char **str, t_flag flag);
+int				before_after_dot(double num);
 void			add_first(char **str, int i, t_flag flag);
 /*
 ** COLORS MANIPULATIONS:
 */
-int			get_color(const char *str, int i, int *j);
+int				get_color(const char *str, int i, int *j);
 /*
 ** POSIX FUNCTIONS:
 */
-void			check_posix(const char *str);
-int			get_param_for_flag(va_list ap, int i);
+int				get_param_for_flag(va_list ap, int i);
 /*
 ** HELPING FUNCTIONS:
 */
-int			strprint_del(char **str);
-int			rank(unsigned long long value, int base);
+int				strprint_del(char **str);
+int				rank(unsigned long long value, int base);
 char			*str_to_char(int ch);
 void			put_value(int *j, int *i);
 void			good_number(long long int *temp, long long int max, \
@@ -168,7 +168,7 @@ void			good_number(long long int *temp, long long int max, \
 */
 char			*str_to_hex(char *str);
 char			*double_to_bitschar(double num);
-char 			*str_to_bitschar(char *str_nt);
+char			*str_to_bitschar(char *str_nt);
 /*
 ** N_FLAG:
 */

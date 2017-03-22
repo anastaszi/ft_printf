@@ -6,7 +6,7 @@
 /*   By: azimina <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 15:36:42 by azimina           #+#    #+#             */
-/*   Updated: 2017/03/20 15:36:45 by azimina          ###   ########.fr       */
+/*   Updated: 2017/03/21 12:09:43 by azimina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	ft_strreverse(char **str)
 {
 	char	temp;
-	int	i;
-	int	len;
+	int		i;
+	int		len;
 
 	len = ft_strlen(*str);
 	i = 0;

@@ -6,45 +6,48 @@
 /*   By: azimina <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 15:33:36 by azimina           #+#    #+#             */
-/*   Updated: 2017/03/20 15:33:38 by azimina          ###   ########.fr       */
+/*   Updated: 2017/03/21 13:43:24 by azimina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void check_int(long long int *temp, t_flag rflag)
+static void	check_int(long long int *temp, t_flag rflag)
 {
-	if (rflag.tchar)
-		good_number(temp, CHAR_MAX, CHAR_MIN);
-	if (rflag.tshort)
-		good_number(temp, SHRT_MAX, SHRT_MIN);
-	if (rflag.tint)
-		good_number(temp, INT_MAX, INT_MIN);
+	if (!rflag.bad)
+	{
+		if (rflag.tchar)
+			good_number(temp, CHAR_MAX, CHAR_MIN);
+		else if (rflag.tshort)
+			good_number(temp, SHRT_MAX, SHRT_MIN);
+		else if (rflag.tint)
+			good_number(temp, INT_MAX, INT_MIN);
+	}
 }
 
-static void add_hash(char **str, t_flag rflag)
+static void	add_hash(char **str, t_flag rflag)
 {
 	if (rflag.specifier == 'X' && ft_strlen(*str) && ft_strcmp(*str, "0"))
 		*str = ft_straddfirst(str, "0X");
-	else if ((rflag.specifier == 'x' && ft_strlen(*str) && ft_strcmp(*str, "0")) || rflag.specifier == 'p')
-			*str = ft_straddfirst(str, "0x");
+	else if ((rflag.specifier == 'x' && ft_strlen(*str) && \
+				ft_strcmp(*str, "0")) || rflag.specifier == 'p')
+		*str = ft_straddfirst(str, "0x");
 	else if (ft_strchr("oO", rflag.specifier) && (*str)[0] != '0')
 		*str = ft_straddfirst(str, "0");
 }
 
-static char *add_numb_precision(char **str, t_flag rflag)
+static char	*add_numb_precision(char **str, t_flag rflag)
 {
-	char *new;
-	char *nullstr;
-	char *temp;
-	int i;
-	char ch;
+	char	*new;
+	char	*nullstr;
+	char	*temp;
+	int		i;
+	char	ch;
 
 	new = NULL;
 	ch = (*str)[0];
 	i = (!ft_strchr("+- ", ch)) ? 0 : 1;
 	temp = (i) ? (*str + 1) : *str;
-	new = ft_strnewset((size_t)(rflag.precision_num + i), '\0');
 	if (i)
 		new = ft_straddchar(&new, ch);
 	i = rflag.precision_num + i - (int)ft_strlen(*str);
@@ -53,23 +56,25 @@ static char *add_numb_precision(char **str, t_flag rflag)
 	new = ft_stradd(&new, temp);
 	ft_memdel((void**)&nullstr);
 	ft_memdel((void**)str);
-	return(new);
+	return (new);
 }
 
-void check_precision_num(char **str, t_flag rflag)
+void		check_precision_num(char **str, t_flag rflag)
 {
 	int		len;
 
-	if ((rflag.specifier != 'p' && !rflag.precision_num && (!ft_strcmp(*str, "0") || (!ft_isdigit((*str)[0]) && !ft_strcmp(*str + 1, "0")))))
-			(*str)[0] = '\0';
+	if ((rflag.specifier != 'p' && \
+				!rflag.precision_num && (!ft_strcmp(*str, "0") || \
+				(!ft_isdigit((*str)[0]) && !ft_strcmp(*str + 1, "0")))))
+		(*str)[0] = '\0';
 	len = (int)ft_strlen(*str);
 	if (rflag.precision_num >= len && ft_strlen(*str) && rflag.precision)
-			*str = add_numb_precision(str, rflag);
+		*str = add_numb_precision(str, rflag);
 	if (rflag.flag_hash)
 		add_hash(str, rflag);
 }
 
-char	*int_manip(va_list ap, t_flag rflag)
+char		*int_manip(va_list ap, t_flag rflag)
 {
 	long long temp;
 
@@ -83,18 +88,16 @@ char	*int_manip(va_list ap, t_flag rflag)
 		temp = va_arg(ap, size_t);
 	else
 		temp = va_arg(ap, intmax_t);
-	if (!rflag.bad)
-		check_int(&temp, rflag);
+	check_int(&temp, rflag);
 	if (rflag.specifier == 'X')
 		return (itoa_long_base(temp, 16, rflag, LETTERSMAX));
-	else if (rflag.specifier == 'x')
+	else if (rflag.specifier == 'x' || (rflag.specifier == 'p' \
+		&& (temp || !rflag.precision || rflag.precision_num)))
 		return (itoa_long_base(temp, 16, rflag, LETTERSMIN));
 	else if (rflag.specifier == 'o' || rflag.specifier == 'O')
 		return (itoa_long_base(temp, 8, rflag, LETTERSMIN));
 	else if (ft_strchr("diuUD", rflag.specifier))
 		return (itoa_long_base(temp, 10, rflag, LETTERSMIN));
-	else if (rflag.specifier == 'p' && (temp || !rflag.precision || rflag.precision_num))
-		return (itoa_long_base(temp, 16, rflag, LETTERSMIN));
 	else
 		return (NULL);
 }

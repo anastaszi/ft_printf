@@ -6,7 +6,7 @@
 /*   By: azimina <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 15:31:50 by azimina           #+#    #+#             */
-/*   Updated: 2017/03/20 15:31:52 by azimina          ###   ########.fr       */
+/*   Updated: 2017/03/21 14:38:49 by azimina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,24 @@ void		put_pr(t_flag *rflag)
 	rflag->precision_num = 0;
 }
 
-void		put_posix(t_flag *rflag, const char *str)
+void		put_posix(t_flag *rflag)
 {
-
 	if (!rflag->posix)
 	{
 		rflag->posix = 1;
-		if (rflag->width != 0)
+		if (rflag->width != 0 && !rflag->width_wc)
 		{
 			rflag->posix_num = rflag->width;
+			rflag->width = 0;
+		}
+		else if (rflag->width != 0 && rflag->width_wc)
+		{
+			rflag->width_elem = rflag->width;
 			rflag->width = 0;
 		}
 		else
 			;
 	}
-	check_posix(str);	
 }
 
 static void	put_for_other_specif(t_flag *rflag)

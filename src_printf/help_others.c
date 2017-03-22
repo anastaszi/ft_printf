@@ -6,13 +6,13 @@
 /*   By: azimina <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 15:33:46 by azimina           #+#    #+#             */
-/*   Updated: 2017/03/20 15:33:48 by azimina          ###   ########.fr       */
+/*   Updated: 2017/03/21 12:25:47 by azimina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	strprint_del(char **str)
+int		strprint_del(char **str)
 {
 	int count;
 
@@ -22,7 +22,7 @@ int	strprint_del(char **str)
 	return (count);
 }
 
-int	rank(unsigned long long value, int base)
+int		rank(unsigned long long value, int base)
 {
 	if (value < (unsigned long long)base)
 		return (1);

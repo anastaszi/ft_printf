@@ -6,7 +6,7 @@
 /*   By: azimina <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 15:41:34 by azimina           #+#    #+#             */
-/*   Updated: 2017/03/20 15:41:36 by azimina          ###   ########.fr       */
+/*   Updated: 2017/03/21 12:25:14 by azimina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	put_n_im(int *j, intmax_t *ch)
 	*ch = *j;
 }
 
-void put_n_li(int *j, long int *ch)
+void	put_n_li(int *j, long int *ch)
 {
 	*ch = *j;
 }

@@ -6,13 +6,13 @@
 /*   By: azimina <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 15:32:50 by azimina           #+#    #+#             */
-/*   Updated: 2017/03/20 15:32:52 by azimina          ###   ########.fr       */
+/*   Updated: 2017/03/21 13:40:45 by azimina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static char *word(char sign, char letter, t_flag flag)
+static char	*word(char sign, char letter, t_flag flag)
 {
 	if (letter == 'n')
 		return ((ft_strchr("FGEA", flag.specifier)) ? "NAN" : "nan");
@@ -22,19 +22,19 @@ static char *word(char sign, char letter, t_flag flag)
 		return ((ft_strchr("FGEA", flag.specifier)) ? "-INF" : "-inf");
 }
 
-int before_after_dot(double num)
+int			before_after_dot(double num)
 {
 	if (num > 10)
-		return (1 + before_after_dot(num/10));
+		return (1 + before_after_dot(num / 10));
 	else
 		return (0);
 }
 
-int check_double(double num, char **str, t_flag flag)
+int			check_double(double num, char **str, t_flag flag)
 {
-	char *temp;
-	char *hex;
-	int check;
+	char	*temp;
+	char	*hex;
+	int		check;
 
 	*str = NULL;
 	temp = double_to_bitschar(num);
@@ -57,17 +57,17 @@ int check_double(double num, char **str, t_flag flag)
 	return (check);
 }
 
-int check_sign(double *num)
+int			check_sign(double *num)
 {
 	if (*num < 0)
 	{
 		*num = -(*num);
 		return (1);
 	}
-		return (0);
+	return (0);
 }
 
-void add_first(char **str, int i, t_flag flag)
+void		add_first(char **str, int i, t_flag flag)
 {
 	if (i)
 		*str = ft_straddfirst(str, "-");

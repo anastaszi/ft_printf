@@ -6,7 +6,7 @@
 /*   By: azimina <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 14:11:40 by azimina           #+#    #+#             */
-/*   Updated: 2017/03/06 23:17:23 by azimina          ###   ########.fr       */
+/*   Updated: 2017/03/21 12:10:35 by azimina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ char				*ft_stradd(char **str, char *add);
 char				*ft_strnadd(char **str, const char *add, size_t len);
 char				*ft_straddfirst(char **str, char *add);
 char				*ft_strnewset(size_t len, char c);
-int				ft_topower(int i, int power);
-int				ft_abc(int num);
+int					ft_topower(int i, int power);
+int					ft_abc(int num);
 char				*ft_straddchar(char **str, char add);
 double				ft_topowerdouble(double num, int i);
 void				ft_strreverse(char **str);
